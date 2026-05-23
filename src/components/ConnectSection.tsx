@@ -79,14 +79,22 @@ export default function ConnectSection() {
                 <Mail className="w-4 h-4 text-palatinate-blue group-hover:scale-110 transition-transform" />
                 <span className="font-black text-primary-text group-hover:text-palatinate-blue transition-colors">sohamgurav808@gmail.com</span>
               </a>
-              <div className="flex items-center gap-3.5 w-fit bg-white/50 border border-white/95 px-4 py-2.5 rounded-[1.2rem] shadow-[0_2px_8px_rgba(0,0,0,0.01)]">
-                <Phone className="w-4 h-4 text-palatinate-blue" />
-                <span className="font-black text-primary-text">+91 95117 95746</span>
-              </div>
-              <div className="flex items-center gap-3.5 w-fit bg-white/50 border border-white/95 px-4 py-2.5 rounded-[1.2rem] shadow-[0_2px_8px_rgba(0,0,0,0.01)]">
-                <MapPin className="w-4 h-4 text-palatinate-blue" />
-                <span className="font-black text-primary-text">Pune, Maharashtra, India</span>
-              </div>
+              <a 
+                href="tel:+919511795746"
+                className="flex items-center gap-3.5 hover:text-palatinate-blue transition-all duration-300 group w-fit bg-white/50 border border-white/95 hover:border-palatinate-blue/30 px-4 py-2.5 rounded-[1.2rem] shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_16px_rgba(23,61,237,0.06)] hover:scale-[1.02] transform-gpu"
+              >
+                <Phone className="w-4 h-4 text-palatinate-blue group-hover:scale-110 transition-transform" />
+                <span className="font-black text-primary-text group-hover:text-palatinate-blue transition-colors">+91 95117 95746</span>
+              </a>
+              <a 
+                href="https://maps.google.com/?q=Pune,+Maharashtra,+India"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3.5 hover:text-palatinate-blue transition-all duration-300 group w-fit bg-white/50 border border-white/95 hover:border-palatinate-blue/30 px-4 py-2.5 rounded-[1.2rem] shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_16px_rgba(23,61,237,0.06)] hover:scale-[1.02] transform-gpu"
+              >
+                <MapPin className="w-4 h-4 text-palatinate-blue group-hover:scale-110 transition-transform" />
+                <span className="font-black text-primary-text group-hover:text-palatinate-blue transition-colors">Pune, Maharashtra, India</span>
+              </a>
             </div>
           </div>
 

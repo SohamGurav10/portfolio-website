@@ -68,40 +68,17 @@ export default function ProjectsSection() {
     },
   ];
 
-  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const email = "sohamgurav808@gmail.com";
-    const subject = encodeURIComponent("Hiring / Collaboration Request");
-    window.location.href = `mailto:${email}?subject=${subject}`;
-  };
-
   return (
     <section id="projects" className="py-24 px-4 md:px-8 max-w-7xl mx-auto w-full border-t border-black/[0.05] relative">
 
       {/* Top Title Section */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-        <div className="space-y-3 max-w-3xl">
-          <span className="text-xs uppercase font-mono tracking-widest text-palatinate-blue font-bold block">
-            PROJECTS
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-primary-text uppercase leading-[1.1] font-sans">
-            LET'S WORK TOGETHER <br className="hidden sm:inline" /> ON YOUR NEXT PROJECT!
-          </h2>
-        </div>
-        <div className="flex-shrink-0">
-          <motion.a
-            href="#"
-            onClick={handleContactClick}
-            whileHover={{ scale: 1.03, backgroundColor: "#2046ff" }}
-            whileTap={{ scale: 0.97 }}
-            className="btn-glow-light btn-shimmer inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-palatinate-blue border border-[#173DED] text-white font-bold text-xs tracking-normal normal-case transition-all duration-300 shadow-[0_4px_14px_rgba(23,61,237,0.25)] cursor-pointer group"
-          >
-            HIRE ME
-            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-white text-palatinate-blue shadow-[0_2px_6px_rgba(23,61,237,0.2)]">
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </span>
-          </motion.a>
-        </div>
+      <div className="max-w-3xl mb-16 space-y-4">
+        <span className="text-xs uppercase font-mono tracking-widest text-palatinate-blue font-bold block">
+          PORTFOLIO SHOWCASE
+        </span>
+        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-primary-text uppercase leading-none font-sans">
+          PROJECTS
+        </h2>
       </div>
 
       {/* Responsive Bento Grid */}
