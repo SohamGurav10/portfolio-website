@@ -41,7 +41,7 @@ export default function AboutSection() {
               My goal is simple: turn complex hardware protocols and backend specifications into premium, human-centric software. I believe in clean code architectures, aggressive caching systems, and responsive, fluid design interfaces.
             </p>
 
-            <div className="pt-4">
+            <div className="pt-4 hidden lg:block">
               <motion.a
                 href="/resume.pdf"
                 target="_blank"
@@ -169,6 +169,24 @@ export default function AboutSection() {
                 </div>
               </div>
             </TiltCard>
+
+            {/* Mobile-Only Download Resume Button - Positioned perfectly below the card stack */}
+            <div className="pt-4 flex justify-center lg:hidden">
+              <motion.a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Soham_Gurav_Resume.pdf"
+                whileHover={{ scale: 1.02, backgroundColor: "#2046ff" }}
+                whileTap={{ scale: 0.98 }}
+                className="btn-glow-light btn-shimmer inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-palatinate-blue border border-[#173DED] text-white font-bold text-xs tracking-normal normal-case transition-all duration-300 shadow-[0_4px_12px_rgba(23,61,237,0.25)] cursor-pointer text-on-glass w-full sm:w-auto justify-center"
+              >
+                DOWNLOAD RESUME
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-white text-palatinate-blue shadow-[0_2px_6px_rgba(23,61,237,0.2)]">
+                  <Download className="w-3 h-3" />
+                </span>
+              </motion.a>
+            </div>
 
           </div>
         </div>

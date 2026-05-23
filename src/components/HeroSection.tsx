@@ -57,7 +57,7 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
           
           {/* Left Column - Content */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left space-y-8 order-2 lg:order-1">
+          <div className="lg:col-span-7 flex flex-col items-start text-left space-y-8 order-1 lg:order-1">
             
             {/* Subtle Tag badge - Matte Light */}
             <motion.div 
@@ -149,7 +149,7 @@ export default function HeroSection() {
           </div>
 
           {/* Right Column - Premium Moveable/Rotatable Glass Frame Profile Portrait */}
-          <div className="lg:col-span-5 flex justify-center order-1 lg:order-2 w-full">
+          <div className="lg:col-span-5 flex justify-center order-2 lg:order-2 w-full">
             <TiltCard 
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
