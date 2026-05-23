@@ -21,8 +21,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Soham | Senior Software Developer & Systems Engineer",
-  description: "Explore the premium portfolio of Soham, a Senior Developer & Electronics/Computer Systems Engineer specializing in high-performance IoT, Flutter mobile applications, and advanced API designs.",
+  title: "Soham Gurav Portfolio",
+  description: "Explore the premium portfolio of Soham, an Electronics/Computer Engineer specializing in high-performance IoT, Flutter mobile applications, and advanced API designs.",
   keywords: ["Soham Portfolio", "Systems Engineer", "IoT Developer", "Flutter Mobile App developer", "Next.js Portfolio", "Light Glass UI", "Apple Minimalist Portfolio"],
   authors: [{ name: "Soham" }],
   robots: {
