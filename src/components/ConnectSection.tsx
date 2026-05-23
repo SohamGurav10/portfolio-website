@@ -46,13 +46,15 @@ export default function ConnectSection() {
   };
 
   return (
-    <footer id="contact" className="pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto w-full border-t border-black/[0.05] relative">
+    <footer id="contact" className="pt-24 pb-0 w-full relative">
 
       {/* Background glow orbs */}
       <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-palatinate-blue/[0.02] blur-[140px] pointer-events-none" />
 
-      {/* Main Split Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-20">
+      {/* Inner grid limited to max-w-7xl, leaving footer background full-bleed */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
+        {/* Main Split Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-20">
 
         {/* Left Column - Typography & Socials */}
         <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-12">
@@ -295,35 +297,37 @@ export default function ConnectSection() {
             </form>
           </TiltCard>
         </div>
-
       </div>
+    </div>
 
-      {/* Elegant Bottom Footer row - Dock style floating panel */}
-      <div className="mt-12 mx-auto max-w-5xl rounded-[24px] bg-white/45 backdrop-blur-[40px] saturate-[170%] shadow-[0_12px_40px_rgba(0,0,0,0.06),inset_0_1.5px_2px_rgba(255,255,255,0.6)] border-t border-l border-white/60 border-b border-r border-black/5 p-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-primary-text font-bold">
-        <div>
-          <span>© 2026 Soham Gurav. All Rights Reserved.</span>
-        </div>
-        <div className="flex gap-6">
-          <a href="#about-me" className="hover:text-palatinate-blue transition-colors relative group">
-            About Me
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
-          </a>
-          <a href="#projects" className="hover:text-palatinate-blue transition-colors relative group">
-            Projects
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
-          </a>
-          <a href="#skills" className="hover:text-palatinate-blue transition-colors relative group">
-            Skills
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
-          </a>
-          <a href="#experience" className="hover:text-palatinate-blue transition-colors relative group">
-            Experience
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
-          </a>
-          <a href="#contact" className="hover:text-palatinate-blue transition-colors relative group">
-            Contact
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
-          </a>
+      {/* Full-width Glass Footer Section at the bottom */}
+      <div className="w-full bg-white/45 backdrop-blur-[40px] saturate-[170%] border-t border-white/60 py-8 px-4 md:px-8 mt-16 shadow-[0_-8px_32px_rgba(0,0,0,0.02)]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-primary-text font-bold">
+          <div>
+            <span>© 2026 Soham Gurav. All Rights Reserved.</span>
+          </div>
+          <div className="flex gap-6">
+            <a href="#about-me" className="hover:text-palatinate-blue transition-colors relative group">
+              About Me
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
+            </a>
+            <a href="#projects" className="hover:text-palatinate-blue transition-colors relative group">
+              Projects
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
+            </a>
+            <a href="#skills" className="hover:text-palatinate-blue transition-colors relative group">
+              Skills
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
+            </a>
+            <a href="#experience" className="hover:text-palatinate-blue transition-colors relative group">
+              Experience
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
+            </a>
+            <a href="#contact" className="hover:text-palatinate-blue transition-colors relative group">
+              Contact
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
+            </a>
+          </div>
         </div>
       </div>
 
