@@ -117,6 +117,35 @@ export default function HeroSection() {
               I am Soham, a systems developer specializing in hardware-software synthesis. Combining Electronics & Computer Engineering with robust cross-platform mobile apps, APIs, and microcontrollers to design secure, low-latency products.
             </motion.p>
 
+            {/* Responsive Mobile-Only Portrait - Positioned exactly above the CTAs on mobile, hidden on desktop */}
+            <div className="w-full flex justify-center pb-6 lg:hidden">
+              <TiltCard 
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full max-w-[340px] aspect-[4/5] rounded-[2.2rem] glass-tint-hero shadow-[0_15px_35px_rgba(0,0,0,0.05)] p-0 group shimmer-trigger glass-fall-in overflow-hidden border border-white/60"
+              >
+                {/* Profile Image portrait asset - fills the entire card */}
+                <img 
+                  src="/soham-portrait.jpg" 
+                  alt="Soham Gurav" 
+                  className="w-full h-full object-cover rounded-[2.2rem]"
+                />
+
+                {/* Subtle elegant corner graphics - retained ultra-minimally */}
+                <div className="absolute top-5 left-5 w-3.5 h-3.5 border-t border-l border-white/50 z-20 pointer-events-none" />
+                <div className="absolute top-5 right-5 w-3.5 h-3.5 border-t border-r border-white/50 z-20 pointer-events-none" />
+                <div className="absolute bottom-5 left-5 w-3.5 h-3.5 border-b border-l border-white/50 z-20 pointer-events-none" />
+                <div className="absolute bottom-5 right-5 w-3.5 h-3.5 border-b border-r border-white/50 z-20 pointer-events-none" />
+
+                {/* Soft ambient lighting reflection overlay */}
+                <div className="absolute bottom-0 inset-x-0 h-1/4 bg-gradient-to-t from-white/30 to-transparent pointer-events-none z-10" />
+
+                {/* Solid physical glass outer border highlight */}
+                <div className="absolute inset-0 rounded-[2.2rem] border border-white/80 pointer-events-none z-20 group-hover:border-white transition-all duration-300" />
+              </TiltCard>
+            </div>
+
             {/* CTA Buttons */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -148,8 +177,8 @@ export default function HeroSection() {
             
           </div>
 
-          {/* Right Column - Premium Moveable/Rotatable Glass Frame Profile Portrait */}
-          <div className="lg:col-span-5 flex justify-center order-2 lg:order-2 w-full">
+          {/* Right Column - Premium Moveable/Rotatable Glass Frame Profile Portrait (Desktop only) */}
+          <div className="lg:col-span-5 justify-center order-2 lg:order-2 w-full hidden lg:flex">
             <TiltCard 
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
