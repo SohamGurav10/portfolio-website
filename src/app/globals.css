@@ -31,7 +31,7 @@
   
   --glass-tint-hero: rgba(255, 255, 255, 0.28);
   --glass-tint-about: rgba(255, 255, 255, 0.28);
-  --glass-tint-projects: rgba(255, 255, 255, 0.28);
+  --glass-tint-projects: rgba(255, 255, 255, 0.82);
   --glass-tint-skills: rgba(255, 255, 255, 0.28);
   --glass-tint-experience: rgba(255, 255, 255, 0.28);
   --glass-tint-contact: rgba(255, 255, 255, 0.28);
@@ -194,9 +194,13 @@ body {
 .glass-tint-about {
   background: var(--glass-tint-about);
 }
+
 .glass-tint-projects {
-  background: var(--glass-tint-projects);
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(60px) saturate(220%) !important;
+  -webkit-backdrop-filter: blur(60px) saturate(220%) !important;
 }
+
 .glass-tint-skills {
   background: var(--glass-tint-skills);
 }

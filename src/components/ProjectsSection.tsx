@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { ArrowUpRight, CheckCircle2, Smartphone, Cpu, ShieldAlert, Zap, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import TiltCard from "./TiltCard";
+import Waves from "./Waves";
 
 interface Project {
   id: string;
@@ -69,142 +70,161 @@ export default function ProjectsSection() {
   ];
 
   return (
-    <section id="projects" className="py-24 px-4 md:px-8 max-w-7xl mx-auto w-full border-t border-black/[0.05] relative">
+    <section id="projects" className="py-24 px-4 md:px-8 w-full border-t border-black/[0.05] relative">
 
-      {/* Top Title Section */}
-      <div className="max-w-3xl mb-16 space-y-4">
-        <span className="text-xs uppercase font-mono tracking-widest text-palatinate-blue font-bold block">
-          PORTFOLIO SHOWCASE
-        </span>
-        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-primary-text uppercase leading-none font-sans">
-          PROJECTS
-        </h2>
+      {/* Dynamic Interactive Waves Backdrop */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.85]">
+        <Waves
+          lineColor="#173ded"
+          backgroundColor="rgba(255, 255, 255, 0.2)"
+          waveSpeedX={0.02}
+          waveSpeedY={0.01}
+          waveAmpX={40}
+          waveAmpY={20}
+          friction={0.9}
+          tension={0.01}
+          maxCursorMove={120}
+          xGap={12}
+          yGap={36}
+        />
       </div>
 
-      {/* Responsive Bento Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
-        {projects.map((project, index) => {
-          const isExpanded = activeCardId === project.id;
+      <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col">
+        {/* Top Title Section */}
+        <div className="max-w-3xl mb-16 space-y-4">
+          <span className="text-xs uppercase font-mono tracking-widest text-palatinate-blue font-bold block">
+            PORTFOLIO SHOWCASE
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-primary-text uppercase leading-none font-sans">
+            PROJECTS
+          </h2>
+        </div>
 
-          return (
-            <TiltCard
-              layout="position"
-              key={project.id}
-              onClick={() => setActiveCardId(isExpanded ? null : project.id)}
-              className={`
-                ${project.gridClass}
-                glass-tint-projects rounded-[2.2rem] p-8 cursor-pointer 
-                flex flex-col justify-between overflow-hidden group relative
-                text-on-glass
-                ${isExpanded ? "ring-2 ring-palatinate-blue bg-white/30 backdrop-blur-[60px] saturate-[220%] shadow-[0_15px_30px_rgba(23,61,237,0.08)]" : ""}
-              `}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Card header */}
-              <div className="relative z-10 w-full">
-                <div className="flex justify-between items-center mb-6">
-                  <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/60 border border-white/85 text-xs font-mono text-secondary-text shadow-[0_1px_4px_rgba(0,0,0,0.01)] font-bold">
-                    {project.icon}
-                    <span>{project.category}</span>
+        {/* Responsive Bento Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
+          {projects.map((project, index) => {
+            const isExpanded = activeCardId === project.id;
+
+            return (
+              <TiltCard
+                layout="position"
+                key={project.id}
+                onClick={() => setActiveCardId(isExpanded ? null : project.id)}
+                className={`
+                  ${project.gridClass}
+                  glass-tint-projects rounded-[2.2rem] p-8 cursor-pointer 
+                  flex flex-col justify-between overflow-hidden group relative
+                  text-on-glass
+                  ${isExpanded ? "ring-2 ring-palatinate-blue backdrop-blur-[60px] saturate-[220%] shadow-[0_15px_30px_rgba(23,61,237,0.08)]" : ""}
+                `}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Card header */}
+                <div className="relative z-10 w-full">
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/60 border border-white/85 text-xs font-mono text-secondary-text shadow-[0_1px_4px_rgba(0,0,0,0.01)] font-bold">
+                      {project.icon}
+                      <span>{project.category}</span>
+                    </div>
                   </div>
+
+                  <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-primary-text mb-3">
+                    {project.title}
+                  </h3>
+                  <p className="text-secondary-text font-sans font-light text-base leading-relaxed max-w-2xl">
+                    {project.shortSummary}
+                  </p>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-primary-text mb-3">
-                  {project.title}
-                </h3>
-                <p className="text-secondary-text font-sans font-light text-base leading-relaxed max-w-2xl">
-                  {project.shortSummary}
-                </p>
-              </div>
+                {/* Expand details container */}
+                <AnimatePresence initial={false}>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      className="relative z-10 overflow-hidden"
+                    >
+                      <div className="pt-6 mt-6 border-t border-black/[0.05] grid grid-cols-1 md:grid-cols-2 gap-8 text-sm font-sans">
 
-              {/* Expand details container */}
-              <AnimatePresence initial={false}>
-                {isExpanded && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 overflow-hidden"
-                  >
-                    <div className="pt-6 mt-6 border-t border-black/[0.05] grid grid-cols-1 md:grid-cols-2 gap-8 text-sm font-sans">
+                        {/* Specs Left Column */}
+                        <div className="space-y-4">
+                          <div className="space-y-1">
+                            <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              Role
+                            </span>
+                            <p className="text-primary-text font-semibold">{project.role}</p>
+                          </div>
 
-                      {/* Specs Left Column */}
-                      <div className="space-y-4">
-                        <div className="space-y-1">
-                          <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
-                            <CheckCircle2 className="w-3.5 h-3.5" />
-                            Role
-                          </span>
-                          <p className="text-primary-text font-semibold">{project.role}</p>
-                        </div>
+                          <div className="space-y-1">
+                            <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
+                              <Zap className="w-3.5 h-3.5" />
+                              Results
+                            </span>
+                            <p className="text-secondary-text font-light leading-relaxed">{project.results}</p>
+                          </div>
 
-                        <div className="space-y-1">
-                          <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
-                            <Zap className="w-3.5 h-3.5" />
-                            Results
-                          </span>
-                          <p className="text-secondary-text font-light leading-relaxed">{project.results}</p>
-                        </div>
-
-                        <div className="space-y-1">
-                          <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
-                            <ShieldAlert className="w-3.5 h-3.5" />
-                            Challenges Solved
-                          </span>
-                          <p className="text-secondary-text font-light leading-relaxed">{project.challenges}</p>
-                        </div>
-                      </div>
-
-                      {/* Specs Right Column */}
-                      <div className="space-y-5">
-                        <div className="space-y-1.5">
-                          <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
-                            <Layers className="w-3.5 h-3.5" />
-                            Tech Stack
-                          </span>
-                          <div className="flex flex-wrap gap-1.5 pt-1">
-                            {project.techStack.map((tech, index) => (
-                              <span
-                                key={index}
-                                className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-white/70 text-primary-text border border-white/90 shadow-[0_1px_4px_rgba(0,0,0,0.01)]"
-                              >
-                                {tech}
-                              </span>
-                            ))}
+                          <div className="space-y-1">
+                            <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
+                              <ShieldAlert className="w-3.5 h-3.5" />
+                              Challenges Solved
+                            </span>
+                            <p className="text-secondary-text font-light leading-relaxed">{project.challenges}</p>
                           </div>
                         </div>
 
-                        <div className="space-y-1">
-                          <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
-                            Impact
-                          </span>
-                          <p className="text-secondary-text font-light leading-relaxed">{project.impact}</p>
+                        {/* Specs Right Column */}
+                        <div className="space-y-5">
+                          <div className="space-y-1.5">
+                            <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
+                              <Layers className="w-3.5 h-3.5" />
+                              Tech Stack
+                            </span>
+                            <div className="flex flex-wrap gap-1.5 pt-1">
+                              {project.techStack.map((tech, index) => (
+                                <span
+                                  key={index}
+                                  className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-white/70 text-primary-text border border-white/90 shadow-[0_1px_4px_rgba(0,0,0,0.01)]"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="space-y-1">
+                            <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
+                              Impact
+                            </span>
+                            <p className="text-secondary-text font-light leading-relaxed">{project.impact}</p>
+                          </div>
+
+                          <div className="space-y-1">
+                            <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
+                              Progress Node
+                            </span>
+                            <p className="text-primary-text font-mono text-xs font-bold">{project.progress}</p>
+                          </div>
                         </div>
 
-                        <div className="space-y-1">
-                          <span className="text-xs uppercase font-mono text-palatinate-blue flex items-center gap-1.5 font-bold">
-                            Progress Node
-                          </span>
-                          <p className="text-primary-text font-mono text-xs font-bold">{project.progress}</p>
-                        </div>
                       </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                {/* Divider bottom */}
+                <div className="mt-8 pt-4 border-t border-black/[0.04] flex items-center justify-end z-10 relative">
+                  <span className="w-8 h-8 rounded-full bg-white/60 border border-white/90 flex items-center justify-center text-secondary-text group-hover:bg-palatinate-blue group-hover:text-white transition-all duration-300 shadow-[0_1px_4px_rgba(0,0,0,0.01)]">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </span>
+                </div>
 
-              {/* Divider bottom */}
-              <div className="mt-8 pt-4 border-t border-black/[0.04] flex items-center justify-end z-10 relative">
-                <span className="w-8 h-8 rounded-full bg-white/60 border border-white/90 flex items-center justify-center text-secondary-text group-hover:bg-palatinate-blue group-hover:text-white transition-all duration-300 shadow-[0_1px_4px_rgba(0,0,0,0.01)]">
-                  <ArrowUpRight className="w-4 h-4" />
-                </span>
-              </div>
-
-            </TiltCard>
-          );
-        })}
+              </TiltCard>
+            );
+          })}
+        </div>
       </div>
 
     </section>
