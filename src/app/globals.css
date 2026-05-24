@@ -202,7 +202,9 @@ body {
 }
 
 .glass-tint-skills {
-  background: var(--glass-tint-skills);
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(60px) saturate(220%) !important;
+  -webkit-backdrop-filter: blur(60px) saturate(220%) !important;
 }
 .glass-tint-experience {
   background: var(--glass-tint-experience);

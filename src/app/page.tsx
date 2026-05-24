@@ -9,6 +9,7 @@ import SkillsSection from "@/components/SkillsSection";
 import HireMeSection from "@/components/HireMeSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ConnectSection from "@/components/ConnectSection";
+import LetterGlitch from "@/components/LetterGlitch";
 
 export default function Home() {
   useEffect(() => {
@@ -33,8 +34,22 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
-        <SkillsSection />
-        <HireMeSection />
+        <div className="relative w-full overflow-hidden">
+          {/* Continuous LetterGlitch Backdrop spanning both sections */}
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.24]">
+            <LetterGlitch
+              glitchSpeed={50}
+              centerVignette={false}
+              outerVignette={false}
+              smooth={true}
+              colors={["#173ded", "#173ded", "#61b3dc"]}
+            />
+          </div>
+          <div className="relative z-10 w-full">
+            <SkillsSection />
+            <HireMeSection />
+          </div>
+        </div>
         <ExperienceSection />
         <ConnectSection />
       </main>
