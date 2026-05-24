@@ -4,15 +4,31 @@ import React from "react";
 import { Download, GraduationCap, Calendar, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
 import TiltCard from "./TiltCard";
+import ShapeGrid from "./ShapeGrid";
 
 export default function AboutSection() {
   return (
-    <section id="about-me" className="py-24 px-4 md:px-8 max-w-7xl mx-auto w-full border-t border-black/[0.05] relative">
+    <section id="about-me" className="py-24 px-4 md:px-8 w-full border-t border-black/[0.05] relative">
+
+      {/* Dynamic Interactive Shape Grid Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.12]">
+        <ShapeGrid
+          speed={0.3}
+          squareSize={40}
+          direction="diagonal"
+          borderColor="#173ded"
+          hoverFillColor="#222"
+          hoverColor="#173ded"
+          hoverTrailAmount={5}
+          shape="square"
+          size={60}
+        />
+      </div>
 
       {/* Light glow blur backdrop */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-72 h-72 rounded-full bg-palatinate-blue/[0.02] blur-[120px] pointer-events-none" />
 
-      <div className="w-full relative z-10 flex flex-col">
+      <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col">
 
         {/* About Me Title Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
