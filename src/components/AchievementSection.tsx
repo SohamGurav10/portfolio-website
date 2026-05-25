@@ -3,6 +3,7 @@
 import React from "react";
 import { Calendar, CheckCircle } from "lucide-react";
 import TiltCard from "./TiltCard";
+import PixelSnow from "./PixelSnow";
 
 interface AchievementItem {
   title: string;
@@ -64,14 +65,31 @@ export default function AchievementSection() {
   ];
 
   return (
-    <section id="achievements" className="py-24 px-4 md:px-8 max-w-7xl mx-auto w-full border-t border-black/[0.05] relative">
+    <section id="achievements" className="py-24 w-full border-t border-black/[0.05] relative overflow-hidden">
+
+      {/* Background PixelSnow effect */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.35]">
+        <PixelSnow 
+          color="#173ded"
+          flakeSize={0.05}
+          minFlakeSize={1.25}
+          pixelResolution={500}
+          speed={0.5}
+          density={0.3}
+          direction={125}
+          brightness={1}
+        />
+      </div>
 
       {/* Background glow orbs */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-[#173ded]/[0.01] blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-[#173ded]/[0.01] blur-[140px] pointer-events-none" />
 
-      {/* Title Block - Centered Editorial Style */}
-      <div className="max-w-3xl mx-auto text-center mb-20 space-y-4 relative z-10">
+      {/* Centered Content Wrapper to fill page sides with snow */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-10">
+
+        {/* Title Block - Centered Editorial Style */}
+        <div className="max-w-3xl mx-auto text-center mb-20 space-y-4 relative z-10">
         <span className="text-xs uppercase font-mono tracking-widest text-[#173ded] font-bold block">
           MILESTONES & RECOGNITIONS
         </span>
@@ -150,6 +168,7 @@ export default function AchievementSection() {
             );
           })}
         </div>
+      </div>
       </div>
     </section>
   );
