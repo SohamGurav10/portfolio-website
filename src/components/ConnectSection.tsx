@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Mail, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import TiltCard from "./TiltCard";
+import Grainient from "./Grainient";
 
 export default function ConnectSection() {
   const [formState, setFormState] = useState({
@@ -51,13 +52,41 @@ export default function ConnectSection() {
   };
 
   return (
-    <footer id="contact" className="pt-24 pb-0 w-full relative">
+    <footer id="contact" className="pt-24 pb-0 w-full relative overflow-hidden">
+
+      {/* Background Grainient effect */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.35]">
+        <Grainient
+          color1="#bababa"
+          color2="#dcdee2"
+          color3="#bababa"
+          timeSpeed={0.25}
+          colorBalance={0.0}
+          warpStrength={1.0}
+          warpFrequency={5.0}
+          warpSpeed={2.0}
+          warpAmplitude={50.0}
+          blendAngle={0.0}
+          blendSoftness={0.05}
+          rotationAmount={500.0}
+          noiseScale={2.0}
+          grainAmount={0.1}
+          grainScale={2.0}
+          grainAnimated={false}
+          contrast={1.5}
+          gamma={1.0}
+          saturation={1.0}
+          centerX={0.0}
+          centerY={0.0}
+          zoom={0.9}
+        />
+      </div>
 
       {/* Background glow orbs */}
       <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-palatinate-blue/[0.02] blur-[140px] pointer-events-none" />
 
       {/* Inner grid limited to max-w-7xl, leaving footer background full-bleed */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-10">
         {/* Main Split Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-20">
 
@@ -323,7 +352,7 @@ export default function ConnectSection() {
       </div>
 
       {/* Full-width Glass Footer Section at the bottom */}
-      <div className="w-full bg-white/45 backdrop-blur-[40px] saturate-[170%] border-t border-white/60 py-8 px-4 md:px-8 mt-16 shadow-[0_-8px_32px_rgba(0,0,0,0.02)]">
+      <div className="w-full bg-white/45 backdrop-blur-[40px] saturate-[170%] border-t border-white/60 py-8 px-4 md:px-8 mt-16 shadow-[0_-8px_32px_rgba(0,0,0,0.02)] relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-primary-text font-bold">
           <div>
             <span>© 2026 Soham Gurav. All Rights Reserved.</span>
