@@ -9,18 +9,25 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
       className={`
-        fixed top-0 inset-x-0 z-50 transition-all duration-500 px-4 md:px-8 py-4
-        ${scrolled ? "top-3" : "top-0"}
+        fixed top-0 inset-x-0 z-50 transition-transform duration-500 px-4 md:px-8 py-4
+        ${scrolled ? "translate-y-3" : "translate-y-0"}
       `}
     >
       <motion.div

@@ -12,32 +12,37 @@ export default function ConnectSection() {
     subject: "",
     message: "",
   });
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const email = "sohamgurav808@gmail.com";
-    const subject = encodeURIComponent(`Portfolio Message: ${formState.subject}`);
-    const body = encodeURIComponent(
-      `Hi Soham,\n\nYou have received a new contact request from your portfolio website.\n\n` +
-      `-------------------------------------------\n` +
-      `Sender Details:\n` +
-      `- Name: ${formState.name}\n` +
-      `- Email: ${formState.email}\n` +
-      `-------------------------------------------\n\n` +
-      `Subject: ${formState.subject}\n\n` +
-      `Message:\n${formState.message}\n\n` +
-      `-------------------------------------------\n` +
-      `Sent via Portfolio Contact Form.`
-    );
-    
-    // Open native mail app with perfectly prefilled template details
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    setSubmitting(true);
+    setError(null);
+    setSubmitted(false);
 
-    setSubmitted(true);
-    setFormState({ name: "", email: "", subject: "", message: "" });
-    setTimeout(() => setSubmitted(false), 4000);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send transmission. Please try again.");
+      }
+
+      setSubmitted(true);
+      setFormState({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setSubmitted(false), 4000);
+    } catch (err: any) {
+      setError(err.message || "An unexpected network error occurred.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleSocialClick = (platform: string) => {
@@ -133,7 +138,7 @@ export default function ConnectSection() {
                     </svg>
                   ),
                   label: "X",
-                  link: "#twitter"
+                  link: "https://x.com/SohamGurav10"
                 },
                 {
                   icon: (
@@ -276,15 +281,17 @@ export default function ConnectSection() {
               <div>
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02, backgroundColor: "#2046ff" }}
-                  whileTap={{ scale: 0.98 }}
-                  className="
+                  disabled={submitting}
+                  whileHover={submitting ? {} : { scale: 1.02, backgroundColor: "#2046ff" }}
+                  whileTap={submitting ? {} : { scale: 0.98 }}
+                  className={`
                     btn-glow-light w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full 
                     bg-palatinate-blue text-white font-bold tracking-wide text-sm font-sans cursor-pointer
                     transition-all duration-300 shadow-[0_4px_15px_rgba(23,61,237,0.2)]
-                  "
+                    ${submitting ? "opacity-75 cursor-not-allowed" : ""}
+                  `}
                 >
-                  SEND
+                  {submitting ? "SENDING..." : "SEND"}
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20">
                     <Send className="w-3.5 h-3.5" />
                   </span>
@@ -296,9 +303,19 @@ export default function ConnectSection() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-green-700 text-sm text-center font-mono font-bold animate-pulse"
+                  className="p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-green-700 text-sm text-center font-mono font-bold"
                 >
                   ✓ TRANSMISSION SECURED. Talk soon!
+                </motion.div>
+              )}
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-700 text-sm text-center font-mono font-bold"
+                >
+                  ⚠ {error}
                 </motion.div>
               )}
 

@@ -6,22 +6,7 @@ import { motion } from "framer-motion";
 import TiltCard from "./TiltCard";
 
 function TechIcon({ tech, className = "w-6 h-6" }: { tech: string; className?: string }) {
-  const [hasError, setHasError] = React.useState(false);
   const normalized = tech.toLowerCase().trim();
-  const slug = normalized
-    .replace(/\+\+/g, "plusplus")
-    .replace(/\s+/g, "-");
-
-  if (!hasError) {
-    return (
-      <img
-        src={`/tech-icons/${slug}.svg`}
-        alt={tech}
-        className={`${className} object-contain`}
-        onError={() => setHasError(true)}
-      />
-    );
-  }
 
   switch (normalized) {
     case "dart":

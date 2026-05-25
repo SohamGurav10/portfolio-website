@@ -47,8 +47,12 @@ export default function RootLayout({
 
 
 
-        <div className="glow-orb-light-1" />
-        <div className="glow-orb-light-2" />
+        <div className="glow-orb-light-1">
+          <div className="glow-orb-light-1-inner" />
+        </div>
+        <div className="glow-orb-light-2">
+          <div className="glow-orb-light-2-inner" />
+        </div>
         <div className="bento-texture-light" />
         <div className="noise-overlay-light" />
         

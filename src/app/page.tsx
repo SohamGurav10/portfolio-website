@@ -13,9 +13,16 @@ import LetterGlitch from "@/components/LetterGlitch";
 
 export default function Home() {
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrolled = window.scrollY;
-      document.documentElement.style.setProperty("--scroll-top", `${scrolled}`);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY;
+          document.documentElement.style.setProperty("--scroll-top", `${scrolled}`);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     // Passive listener avoids blocking main thread scrolling
