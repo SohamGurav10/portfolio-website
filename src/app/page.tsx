@@ -6,7 +6,6 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import SkillsSection from "@/components/SkillsSection";
-import HireMeSection from "@/components/HireMeSection";
 import AchievementSection from "@/components/AchievementSection";
 import ConnectSection from "@/components/ConnectSection";
 import LetterGlitch from "@/components/LetterGlitch";
@@ -54,7 +53,6 @@ export default function Home() {
           </div>
           <div className="relative z-10 w-full">
             <SkillsSection />
-            <HireMeSection />
           </div>
         </div>
         <AchievementSection />

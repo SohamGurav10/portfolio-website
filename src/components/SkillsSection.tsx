@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Terminal, Workflow, HardDrive, Wrench } from "lucide-react";
+import { Terminal, Workflow, HardDrive, Wrench, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import TiltCard from "./TiltCard";
 
@@ -234,6 +234,13 @@ interface SkillCategory {
 }
 
 export default function SkillsSection() {
+  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const email = "sohamgurav808@gmail.com";
+    const subject = encodeURIComponent("Hiring / Collaboration Request");
+    window.location.href = `mailto:${email}?subject=${subject}`;
+  };
+
   const categories: SkillCategory[] = [
     {
       title: "Core Programming Languages",
@@ -347,6 +354,46 @@ export default function SkillsSection() {
           </TiltCard>
         ))}
       </div>
+
+      {/* Elegant Divider with a subtle premium accent glow */}
+      <div className="my-12 w-full h-[1px] bg-black/[0.06] relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-palatinate-blue/20 to-transparent" />
+      </div>
+
+      {/* Integrated Hire Me Bento Card spanning the full container width outside the grid */}
+      <TiltCard
+        className="w-full glass-tint-skills rounded-[2.2rem] p-8 md:p-12 shadow-[0_10px_25px_rgba(0,0,0,0.03)] glass-fall-in text-on-glass relative overflow-hidden"
+        style={{ animationDelay: `${categories.length * 0.1}s` }}
+      >
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 w-full z-10 relative">
+          <div className="space-y-4 max-w-3xl">
+            <span className="text-xs uppercase font-mono tracking-widest text-palatinate-blue font-bold block">
+              COLLABORATION & OPPORTUNITIES
+            </span>
+            <h3 className="text-3xl md:text-4xl font-black tracking-tight text-primary-text uppercase leading-[1.1] font-sans">
+              LET'S WORK TOGETHER <br className="hidden sm:inline" /> ON YOUR NEXT PROJECT!
+            </h3>
+            <p className="text-sm text-secondary-text font-sans font-light leading-relaxed max-w-2xl">
+              I am currently open to full-time engineering roles, innovative systems consulting, or robust custom applications development. Let's design and engineer something premium together.
+            </p>
+          </div>
+          
+          <div className="flex-shrink-0 self-start md:self-center">
+            <motion.a
+              href="#"
+              onClick={handleContactClick}
+              whileHover={{ scale: 1.03, backgroundColor: "#2046ff" }}
+              whileTap={{ scale: 0.97 }}
+              className="btn-glow-light btn-shimmer inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-palatinate-blue border border-[#173DED] text-white font-bold text-xs tracking-normal normal-case transition-all duration-300 shadow-[0_4px_14px_rgba(23,61,237,0.25)] cursor-pointer group"
+            >
+              HIRE ME
+              <span className="flex items-center justify-center w-5 h-5 rounded-full bg-white text-palatinate-blue shadow-[0_2px_6px_rgba(23,61,237,0.2)]">
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </span>
+            </motion.a>
+          </div>
+        </div>
+      </TiltCard>
     </section>
   );
 }

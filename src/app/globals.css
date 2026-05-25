@@ -8,14 +8,14 @@
   --color-primary-text: var(--text-primary);
   --color-secondary-text: var(--text-secondary);
   --color-muted-text: var(--text-muted);
-  
+
   --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 }
 
 :root {
   color-scheme: light;
-  
+
   --background-1: #F9FAFB;
   --background-2: #F3F4F6;
   --background-3: #DCDEE2;
@@ -23,22 +23,15 @@
   --text-primary: #111111;
   --text-secondary: #4B5563;
   --text-muted: #6B7280;
-  
+
   --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border-specular: rgba(255, 255, 255, 0.5);
   --glass-border-shadow: rgba(0, 0, 0, 0.08);
   --glass-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 8px 32px rgba(0, 0, 0, 0.12);
-  
-  --glass-tint-hero: rgba(255, 255, 255, 0.28);
-  --glass-tint-about: rgba(255, 255, 255, 0.28);
-  --glass-tint-projects: rgba(255, 255, 255, 0.82);
-  --glass-tint-skills: rgba(255, 255, 255, 0.28);
-  --glass-tint-experience: rgba(255, 255, 255, 0.28);
-  --glass-tint-contact: rgba(255, 255, 255, 0.28);
-  
+
   --bento-grid-color: rgba(75, 85, 99, 0.05);
   --noise-opacity: 0.015;
-  
+
   --orb-bg-1: rgba(23, 61, 237, 0.04);
   --orb-bg-2: rgba(23, 61, 237, 0.03);
 }
@@ -57,13 +50,11 @@ body {
   position: fixed;
   inset: 0;
   z-index: -10;
-  background: linear-gradient(
-    135deg,
-    var(--background-1) 0%,
-    var(--background-2) 35%,
-    var(--background-3) 70%,
-    var(--background-4) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--background-1) 0%,
+      var(--background-2) 35%,
+      var(--background-3) 70%,
+      var(--background-4) 100%);
   background-size: 200% 200%;
   animation: gradientShiftLight 25s ease infinite;
   filter: hue-rotate(calc(var(--scroll-top, 0) * 0.02deg));
@@ -125,7 +116,7 @@ body {
   z-index: -9;
   opacity: 0.25;
   pointer-events: none;
-  background-image: 
+  background-image:
     linear-gradient(var(--bento-grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--bento-grid-color) 1px, transparent 1px);
   background-size: 80px 80px;
@@ -153,27 +144,27 @@ body {
   background: var(--glass-bg);
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
-  
+
   /* Specular Light Refraction Borders */
   border-top: 1px solid var(--glass-border-specular);
   border-left: 1px solid var(--glass-border-specular);
   border-bottom: 1px solid var(--glass-border-shadow);
   border-right: 1px solid var(--glass-border-shadow);
-  
+
   /* Inset Specular Highlight & Ambient Soft Drop Shadow */
   box-shadow: var(--glass-shadow);
-  
+
   position: relative;
   overflow: hidden;
-  transition: box-shadow 0.35s ease, 
-              backdrop-filter 0.35s ease, 
-              background 0.35s ease, 
-              border-color 0.35s ease;
+  transition: box-shadow 0.35s ease,
+    backdrop-filter 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease;
   will-change: transform, opacity;
 }
 
 /* Ensure that nested content within WebGL glass cards remains fully interactive */
-.light-glass-card > * {
+.light-glass-card>* {
   pointer-events: auto;
 }
 
@@ -181,12 +172,10 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(23, 61, 237, 0.02) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(23, 61, 237, 0.02) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -199,30 +188,17 @@ body {
   }
 }
 
-/* --- Section Tints (Under 0.12 opacity) --- */
-.glass-tint-hero {
-  background: var(--glass-tint-hero);
-}
-.glass-tint-about {
-  background: var(--glass-tint-about);
-}
-
-.glass-tint-projects {
-  background: rgba(255, 255, 255, 0.92) !important;
+/* --- Unified Section Glass Tints (#dcdee2 / rgba(220, 222, 226, 0.55)) --- */
+.glass-tint-hero,
+.glass-tint-about,
+.glass-tint-projects,
+.glass-tint-skills,
+.glass-tint-experience,
+.glass-tint-contact,
+.glass-tint-connect {
+  background: rgba(220, 222, 226, 0.55) !important;
   backdrop-filter: blur(60px) saturate(220%) !important;
   -webkit-backdrop-filter: blur(60px) saturate(220%) !important;
-}
-
-.glass-tint-skills {
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(60px) saturate(220%) !important;
-  -webkit-backdrop-filter: blur(60px) saturate(220%) !important;
-}
-.glass-tint-experience {
-  background: var(--glass-tint-experience);
-}
-.glass-tint-contact {
-  background: var(--glass-tint-contact);
 }
 
 /* --- Hover Interactions — Apple Liquid Glass Hover Glow --- */
@@ -230,20 +206,20 @@ body {
   /* Let JS-based liquidGL handle 3D tilt and scale zoom smoothly; CSS handles ambient halo glows */
   backdrop-filter: blur(50px) saturate(200%) brightness(1.04) !important;
   -webkit-backdrop-filter: blur(50px) saturate(200%) brightness(1.04) !important;
-  
+
   /* High-intensity Specular Edge Refraction */
   border-top-color: rgba(255, 255, 255, 0.95) !important;
   border-left-color: rgba(255, 255, 255, 0.95) !important;
   border-bottom-color: rgba(255, 255, 255, 0.25) !important;
   border-right-color: rgba(255, 255, 255, 0.25) !important;
-  
+
   /* 
     Apple Liquid Glass Halo Hover Glow:
     1. Boosted top specular inner highlight (inset 0 1.5px 2px)
     2. Brilliant white outer glass halo glow (0 0 30px 4px rgba(255, 255, 255, 0.95))
     3. Fine-tuned physical shadow (0 12px 40px rgba(0, 0, 0, 0.08))
   */
-  box-shadow: 
+  box-shadow:
     inset 0 1.5px 2px rgba(255, 255, 255, 0.7),
     0 0 30px 4px rgba(255, 255, 255, 0.95),
     0 12px 40px rgba(0, 0, 0, 0.08) !important;
@@ -263,12 +239,10 @@ body {
   left: 0;
   width: 150%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.35) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 100%);
   transform: translateX(-100%) skewX(-25deg);
   transition: none;
   pointer-events: none;
@@ -286,13 +260,14 @@ body {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, opacity 0.35s ease;
   will-change: transform;
 }
+
 .interactive-item:hover {
   transform: scale(1.04);
 }
 
 /* Active glowing buttons - Palatinate Blue focus */
 .btn-glow-light {
-  box-shadow: 
+  box-shadow:
     0 0 0 0px rgba(23, 61, 237, 0.2),
     0 4px 15px rgba(23, 61, 237, 0.15);
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -300,7 +275,7 @@ body {
 }
 
 .btn-glow-light:hover {
-  box-shadow: 
+  box-shadow:
     0 0 20px 4px rgba(23, 61, 237, 0.25),
     0 8px 25px rgba(23, 61, 237, 0.3);
   transform: scale(1.04);
@@ -335,21 +310,45 @@ body {
 
 /* Keyframe Background Animations */
 @keyframes gradientShiftLight {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes floatOrbLight1 {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-3vw, 3vh); }
-  100% { transform: translate(0, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-3vw, 3vh);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 @keyframes floatOrbLight2 {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(3vw, -3vh); }
-  100% { transform: translate(0, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(3vw, -3vh);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 /* Ultra smooth modern scrollbar styling */
@@ -377,7 +376,10 @@ body {
 }
 
 /* Below-the-fold dynamic rendering optimizations (excluding #about-me to prevent layout pop) */
-#projects, #skills, #achievements, #contact {
+#projects,
+#skills,
+#achievements,
+#contact {
   content-visibility: auto;
   contain-intrinsic-size: 0 600px;
 }
