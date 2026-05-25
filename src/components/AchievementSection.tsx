@@ -71,13 +71,14 @@ export default function AchievementSection() {
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.35]">
         <PixelSnow 
           color="#173ded"
-          flakeSize={0.05}
+          flakeSize={0.02}
           minFlakeSize={1.25}
           pixelResolution={500}
-          speed={0.5}
-          density={0.3}
-          direction={125}
+          speed={0.2}
+          density={1}
+          direction={90}
           brightness={1}
+          depthFade={1}
         />
       </div>
 
