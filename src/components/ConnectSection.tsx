@@ -341,8 +341,8 @@ export default function ConnectSection() {
               SKILLS
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
             </a>
-            <a href="#experience" className="hover:text-palatinate-blue transition-colors relative group">
-              EXPERIENCE
+            <a href="#achievements" className="hover:text-palatinate-blue transition-colors relative group">
+              ACHIEVEMENTS
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-palatinate-blue group-hover:w-full transition-all duration-300" />
             </a>
             <a href="#contact" className="hover:text-palatinate-blue transition-colors relative group">

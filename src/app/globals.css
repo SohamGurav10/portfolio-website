@@ -377,7 +377,7 @@ body {
 }
 
 /* Below-the-fold dynamic rendering optimizations (excluding #about-me to prevent layout pop) */
-#projects, #skills, #experience, #contact {
+#projects, #skills, #achievements, #contact {
   content-visibility: auto;
   contain-intrinsic-size: 0 600px;
 }

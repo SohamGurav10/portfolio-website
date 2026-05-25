@@ -7,7 +7,7 @@ import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import SkillsSection from "@/components/SkillsSection";
 import HireMeSection from "@/components/HireMeSection";
-import ExperienceSection from "@/components/ExperienceSection";
+import AchievementSection from "@/components/AchievementSection";
 import ConnectSection from "@/components/ConnectSection";
 import LetterGlitch from "@/components/LetterGlitch";
 
@@ -57,7 +57,7 @@ export default function Home() {
             <HireMeSection />
           </div>
         </div>
-        <ExperienceSection />
+        <AchievementSection />
         <ConnectSection />
       </main>
     </>

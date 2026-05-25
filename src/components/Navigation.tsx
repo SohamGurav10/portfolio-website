@@ -64,7 +64,7 @@ export default function Navigation() {
               { label: "ABOUT ME", id: "about-me" },
               { label: "PROJECTS", id: "projects" },
               { label: "SKILLS", id: "skills" },
-              { label: "EXPERIENCE", id: "experience" },
+              { label: "ACHIEVEMENTS", id: "achievements" },
               { label: "CONTACT", id: "contact" }
             ].map((item) => (
               <motion.a
@@ -107,7 +107,7 @@ export default function Navigation() {
                 { label: "ABOUT ME", id: "about-me" },
                 { label: "PROJECTS", id: "projects" },
                 { label: "SKILLS", id: "skills" },
-                { label: "EXPERIENCE", id: "experience" },
+                { label: "ACHIEVEMENTS", id: "achievements" },
                 { label: "CONTACT", id: "contact" }
               ].map((item) => (
                 <a
