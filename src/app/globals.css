@@ -57,8 +57,6 @@ body {
       var(--background-4) 100%);
   background-size: 200% 200%;
   animation: gradientShiftLight 25s ease infinite;
-  filter: hue-rotate(calc(var(--scroll-top, 0) * 0.02deg));
-  will-change: filter;
   transition: background 0.4s ease;
 }
 
@@ -373,13 +371,4 @@ body {
 /* Performance Layer Optimizations */
 .animate-on-scroll {
   will-change: transform, opacity;
-}
-
-/* Below-the-fold dynamic rendering optimizations (excluding #about-me to prevent layout pop) */
-#projects,
-#skills,
-#achievements,
-#contact {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
 }

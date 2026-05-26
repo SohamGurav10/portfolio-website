@@ -43,6 +43,8 @@ export default function LetterGlitch({
   const grid = useRef<Grid>({ columns: 0, rows: 0 });
   const context = useRef<CanvasRenderingContext2D | null>(null);
   const lastGlitchTime = useRef<number>(Date.now());
+  const isVisibleRef = useRef<boolean>(true);
+  const isPageVisibleRef = useRef<boolean>(true);
 
   const lettersAndSymbols = Array.from(characters);
   const activeColors = colors && colors.length > 0 ? colors : glitchColors;
@@ -202,6 +204,11 @@ export default function LetterGlitch({
   };
 
   const animate = () => {
+    if (!isVisibleRef.current || !isPageVisibleRef.current) {
+      animationRef.current = null;
+      return;
+    }
+
     const now = Date.now();
     if (now - lastGlitchTime.current >= glitchSpeed) {
       updateLetters();
@@ -216,29 +223,73 @@ export default function LetterGlitch({
     animationRef.current = requestAnimationFrame(animate);
   };
 
+  const tryStart = () => {
+    if (isVisibleRef.current && isPageVisibleRef.current && animationRef.current === null) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+  };
+
+  const tryStop = () => {
+    if (animationRef.current !== null) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     context.current = canvas.getContext("2d");
+    
+    isVisibleRef.current = true;
+    isPageVisibleRef.current = !document.hidden;
+
     resizeCanvas();
-    animate();
+    
+    animationRef.current = null;
+    tryStart();
 
     let resizeTimeout: NodeJS.Timeout;
 
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        if (animationRef.current) cancelAnimationFrame(animationRef.current);
+        tryStop();
         resizeCanvas();
-        animate();
+        tryStart();
       }, 100);
     };
 
     window.addEventListener("resize", handleResize);
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+        if (isVisibleRef.current) {
+          tryStart();
+        } else {
+          tryStop();
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
+    const onVisibilityChange = () => {
+      isPageVisibleRef.current = !document.hidden;
+      if (isPageVisibleRef.current) {
+        tryStart();
+      } else {
+        tryStop();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      tryStop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener("resize", handleResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -357,21 +357,62 @@ export default function Waves({
       }
     }
 
+    let isVisible = true;
+    let isPageVisible = !document.hidden;
+
+    function tryStart() {
+      if (isVisible && isPageVisible && frameIdRef.current === null) {
+        frameIdRef.current = requestAnimationFrame(tick);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    function tryStop() {
+      if (frameIdRef.current !== null) {
+        cancelAnimationFrame(frameIdRef.current);
+        frameIdRef.current = null;
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          tryStart();
+        } else {
+          tryStop();
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(container);
+
+    const onVisibilityChange = () => {
+      isPageVisible = !document.hidden;
+      if (isPageVisible) {
+        tryStart();
+      } else {
+        tryStop();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     setSize();
     setLines();
-    frameIdRef.current = requestAnimationFrame(tick);
+    frameIdRef.current = null;
+    tryStart();
 
     window.addEventListener("resize", onResize);
     window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
 
     return () => {
+      tryStop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("touchmove", onTouchMove);
-      if (frameIdRef.current !== null) {
-        cancelAnimationFrame(frameIdRef.current);
-      }
     };
   }, []);
 

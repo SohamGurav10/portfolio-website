@@ -408,16 +408,56 @@ export default function ShapeGrid({
       hoveredSquare.current = null;
     };
 
+    let isVisible = true;
+    let isPageVisible = !document.hidden;
+
+    const tryStart = () => {
+      if (isVisible && isPageVisible && requestRef.current === null) {
+        requestRef.current = requestAnimationFrame(updateAnimation);
+      }
+    };
+
+    const tryStop = () => {
+      if (requestRef.current !== null) {
+        cancelAnimationFrame(requestRef.current);
+        requestRef.current = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          tryStart();
+        } else {
+          tryStop();
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
+    const onVisibilityChange = () => {
+      isPageVisible = !document.hidden;
+      if (isPageVisible) {
+        tryStart();
+      } else {
+        tryStop();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseleave", handleMouseLeave);
 
-    requestRef.current = requestAnimationFrame(updateAnimation);
+    requestRef.current = null;
+    tryStart();
 
     return () => {
+      tryStop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener("resize", resizeCanvas);
-      if (requestRef.current !== null) {
-        cancelAnimationFrame(requestRef.current);
-      }
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseleave", handleMouseLeave);
     };

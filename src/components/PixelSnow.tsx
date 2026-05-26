@@ -242,22 +242,6 @@ export default function PixelSnow({
     }, 100);
   }, []);
 
-  // Visibility observer
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisibleRef.current = entry.isIntersecting;
-      },
-      { threshold: 0 }
-    );
-
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, []);
-
   // Main Three.js setup - only runs once
   useEffect(() => {
     const container = containerRef.current;
@@ -309,19 +293,61 @@ export default function PixelSnow({
     window.addEventListener('resize', handleResize);
 
     const startTime = performance.now();
-    const animate = () => {
-      animationRef.current = requestAnimationFrame(animate);
+    let isVisible = true;
+    let isPageVisible = !document.hidden;
 
-      // Only render if visible
-      if (isVisibleRef.current) {
-        material.uniforms.uTime.value = (performance.now() - startTime) * 0.001;
-        renderer.render(scene, camera);
+    const animate = () => {
+      material.uniforms.uTime.value = (performance.now() - startTime) * 0.001;
+      renderer.render(scene, camera);
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    const tryStart = () => {
+      if (isVisible && isPageVisible && animationRef.current === 0) {
+        animationRef.current = requestAnimationFrame(animate);
       }
     };
-    animate();
+
+    const tryStop = () => {
+      if (animationRef.current !== 0) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = 0;
+      }
+    };
+
+    // Intersection Observer to track scroll visibility
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          tryStart();
+        } else {
+          tryStop();
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(container);
+
+    // Tab visibility changes
+    const onVisibilityChange = () => {
+      isPageVisible = !document.hidden;
+      if (isPageVisible) {
+        tryStart();
+      } else {
+        tryStop();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    // Initial play check
+    animationRef.current = 0; // Initialize state tracking variable
+    tryStart();
 
     return () => {
-      cancelAnimationFrame(animationRef.current);
+      tryStop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener('resize', handleResize);
       if (resizeTimeoutRef.current) {
         clearTimeout(resizeTimeoutRef.current);
