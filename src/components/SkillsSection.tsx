@@ -312,23 +312,14 @@ export default function SkillsSection() {
           >
             <div className="flex flex-col h-full justify-between gap-6 z-10 relative">
 
-              {/* Category Icon and Info */}
-              <div className="space-y-4">
-                <div className="p-2.5 rounded-xl bg-white/50 border border-white/85 text-palatinate-blue shadow-[0_2px_6px_rgba(0,0,0,0.01)] w-fit">
-                  {category.icon}
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-palatinate-blue/60 font-bold block">
-                    {category.resumeLabel}
-                  </span>
-                  <h3 className="text-xl font-bold tracking-tight text-primary-text transition-colors duration-300">
-                    {category.title}
-                  </h3>
-                  <p className="text-sm text-secondary-text leading-relaxed font-sans font-light">
-                    {category.description}
-                  </p>
-                </div>
+              {/* Category Info */}
+              <div className="space-y-1">
+                <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-palatinate-blue/60 font-bold block">
+                  {category.resumeLabel}
+                </span>
+                <h3 className="text-xl font-bold tracking-tight text-primary-text transition-colors duration-300">
+                  {category.title}
+                </h3>
               </div>
 
               {/* Skill pills with icon + text at the bottom */}
