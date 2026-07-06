@@ -52,8 +52,8 @@ export default function Navigation() {
           >
             SG
           </motion.div>
-          <span className="font-sans text-sm font-bold tracking-widest text-primary-text uppercase group-hover:text-palatinate-blue transition-colors">
-            SOHAM GURAV
+          <span className="font-sans text-xl font-bold tracking-tighter text-primary-text group-hover:text-palatinate-blue transition-colors">
+            soham gurav
           </span>
         </a>
 
