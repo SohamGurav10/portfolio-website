@@ -19,6 +19,8 @@ interface Project {
   impact: string;
   challenges: string;
   gridClass: string;
+  outcome: string;
+  repoLinks: { label: string; href: string }[];
 }
 
 export default function ProjectsSection() {
@@ -26,46 +28,59 @@ export default function ProjectsSection() {
 
   const projects: Project[] = [
     {
-      id: "pill-dispenser",
-      title: "Smart Pill Dispenser Mobile App",
-      shortSummary: "A medication management application using Flutter & Firebase Authentication featuring secure scheduling matrices.",
-      icon: <Smartphone className="w-5 h-5 text-palatinate-blue" />,
-      category: "Mobile Application",
-      role: "Lead Mobile & Auth Architect",
-      progress: "100% Deployed // EYIC 2024-25 Innovation Competency",
-      results: "Increased medication compliance, successfully verified under Design Thinking research models.",
-      techStack: ["Flutter", "Dart", "Firebase", "Local Notifications", "Hive Storage", "Git"],
-      impact: "Significantly optimized UI layouts for elderly accessibility and secure medication adherence profiles.",
-      challenges: "Configuring robust foreground/background background workers for critical notification schedules when devices are in sleep mode.",
-      gridClass: "lg:col-span-8",
-    },
-    {
       id: "smart-attendance",
-      title: "IoT Smart Attendance System",
-      shortSummary: "IoT-based attendance tracking integrating ESP32 with Flutter and Firebase via Wi-Fi AP+STA authentication.",
+      title: "Smart Attendance Monitoring System",
+      shortSummary: "A classroom attendance system connecting ESP32 session gateways, a Flutter client, and Firebase Firestore.",
       icon: <Cpu className="w-5 h-5 text-palatinate-blue" />,
       category: "IoT & Embedded Systems",
       role: "Hardware-to-Mobile Engineer",
-      progress: "Prototype Deployed for Classroom Environments",
-      results: "Prevented proxy logs entirely using time-restricted access structures and session tokens.",
-      techStack: ["ESP32", "C / C++", "Flutter", "Firebase Cloud", "Wi-Fi AP + STA Mode"],
-      impact: "Reduced attendance marking latency from 10 minutes to under 4 seconds per student.",
-      challenges: "Syncing ESP32 hardware authentication loops with mobile client session sockets in low-bandwidth classroom Wi-Fi spots.",
-      gridClass: "lg:col-span-4",
+      progress: "Prototype deployed for classroom environments",
+      results: "Verifies classroom presence through time-limited Wi-Fi sessions before attendance is submitted.",
+      techStack: ["ESP32", "C / C++", "Flutter", "Firebase Firestore", "Wi-Fi AP + STA"],
+      impact: "Creates a physical session gateway that blocks remote proxy check-ins and syncs attendance through Firebase.",
+      challenges: "Synchronizing ESP32 authentication, session expiry, LCD status, and Flutter client flows over classroom Wi-Fi.",
+      gridClass: "lg:col-span-8",
+      outcome: "Outcome: time-limited classroom sessions with device-authenticated attendance flow.",
+      repoLinks: [
+        { label: "ESP32 firmware", href: "https://github.com/SohamGurav10/smart-attendance-esp32" },
+        { label: "Flutter app", href: "https://github.com/SohamGurav10/smart-attendance-flutter" },
+      ],
     },
     {
-      id: "randd-initiatives",
-      title: "R&D Systems & Innovation Initiatives",
-      shortSummary: "Applied design thinking frameworks and IoT research models to secure systems deployment.",
+      id: "pill-dispenser",
+      title: "Smart Pill Dispenser Mobile App",
+      shortSummary: "A medication management application using Flutter and Firebase Authentication with secure scheduling and reminders.",
+      icon: <Smartphone className="w-5 h-5 text-palatinate-blue" />,
+      category: "Mobile Application",
+      role: "Lead Mobile & Auth Architect",
+      progress: "EYIC 2024–25 innovation project",
+      results: "Provides authenticated medication profiles and scheduled reminders for medication adherence workflows.",
+      techStack: ["Flutter", "Dart", "Firebase", "Local Notifications", "Hive Storage"],
+      impact: "Combines accessible mobile flows with persistent scheduling for an automated medicine-delivery system.",
+      challenges: "Keeping foreground and background notification schedules reliable while devices are idle or asleep.",
+      gridClass: "lg:col-span-4",
+      outcome: "Outcome: authenticated medication schedules with reminder delivery built for accessibility.",
+      repoLinks: [
+        { label: "EYIC repository", href: "https://github.com/SohamGurav10/EYIC-2024-25" },
+      ],
+    },
+    {
+      id: "portfolio-website",
+      title: "Soham Gurav Portfolio",
+      shortSummary: "A responsive Next.js portfolio presenting systems projects, technical skills, achievements, and a Resend-powered contact flow.",
       icon: <Layers className="w-5 h-5 text-palatinate-blue" />,
-      category: "Research & Systems Design",
-      role: "Core Innovator & Systems Analyst",
-      progress: "Ongoing R&D // Savitribai Phule Pune University",
-      results: "Validated multiple prototypes at academic and institutional hackathons.",
-      techStack: ["Design Thinking", "System Architecture", "API Integration", "Secure Authentication", "IoT Integration"],
-      impact: "Pioneered session-based auth research and user-centric flows for accessible medicine delivery systems.",
-      challenges: "Synthesizing disparate IoT hardware states with high-level serverless web socket layers securely.",
+      category: "Web Application",
+      role: "Designer & Full-Stack Engineer",
+      progress: "Live at sohamgurav.me",
+      results: "Ships a responsive portfolio experience with server-side contact delivery and a focused project showcase.",
+      techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Resend"],
+      impact: "Turns a traditional resume into a scannable, interactive product interface while keeping project proof visible.",
+      challenges: "Balancing a distinctive glassmorphism visual system and animated backgrounds with readable, responsive content.",
       gridClass: "lg:col-span-12",
+      outcome: "Outcome: live portfolio experience with responsive sections and verified contact delivery.",
+      repoLinks: [
+        { label: "Source repository", href: "https://github.com/SohamGurav10/soham-gurav" },
+      ],
     },
   ];
 
@@ -134,6 +149,24 @@ export default function ProjectsSection() {
                   <p className="text-secondary-text font-sans font-light text-base leading-relaxed max-w-2xl">
                     {project.shortSummary}
                   </p>
+                  <p className="mt-4 text-xs font-mono font-bold uppercase tracking-wide text-palatinate-blue">
+                    {project.outcome}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.repoLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(event) => event.stopPropagation()}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/90 bg-white/70 px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wide text-primary-text transition-colors hover:bg-palatinate-blue hover:text-white"
+                      >
+                        {link.label}
+                        <ArrowUpRight className="h-3 w-3" />
+                      </a>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Expand details container */}
