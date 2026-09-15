@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronRight, Search } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Search } from "lucide-react";
 
 interface Project {
   id: string;
@@ -97,12 +97,13 @@ export default function ProjectsSection() {
               <span className="h-3 w-3 rounded-full bg-[#28c840]" />
             </div>
             <div className="flex items-center gap-4 border-b border-black/[0.06] bg-white/55 px-5 md:px-6">
-              <div className="flex rounded-2xl border border-white/70 bg-white/60 p-1 shadow-[0_2px_8px_rgba(15,23,42,0.06)] backdrop-blur-xl">
-                <button type="button" aria-label="Previous project" onClick={() => moveThroughHistory(-1)} disabled={historyIndex === 0} className="rounded-xl p-2 text-secondary-text transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-35 focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue">
-                  <ArrowLeft className="h-4 w-4" />
+              <div className="flex items-center rounded-[1.5rem] border border-slate-200 bg-white/75 p-1 shadow-[0_2px_8px_rgba(15,23,42,0.06)] backdrop-blur-xl">
+                <button type="button" aria-label="Previous project" onClick={() => moveThroughHistory(-1)} disabled={historyIndex === 0} className="flex h-10 w-11 items-center justify-center rounded-[1.1rem] text-slate-700 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-35 focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue">
+                  <ChevronLeft className="h-6 w-6 stroke-[2.25]" />
                 </button>
-                <button type="button" aria-label="Next project" onClick={() => moveThroughHistory(1)} disabled={historyIndex === history.length - 1} className="rounded-xl p-2 text-secondary-text transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-35 focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue">
-                  <ArrowRight className="h-4 w-4" />
+                <span className="h-6 w-px bg-slate-200" aria-hidden="true" />
+                <button type="button" aria-label="Next project" onClick={() => moveThroughHistory(1)} disabled={historyIndex === history.length - 1} className="flex h-10 w-11 items-center justify-center rounded-[1.1rem] text-slate-700 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-35 focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue">
+                  <ChevronRight className="h-6 w-6 stroke-[2.25]" />
                 </button>
               </div>
               <span className="hidden min-w-0 truncate text-lg font-semibold tracking-tight text-primary-text sm:block">Projects</span>

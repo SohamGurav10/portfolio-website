@@ -1,12 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Download, Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
+
+const navigationItems = [
+  { label: "ABOUT ME", id: "about-me" },
+  { label: "PROJECTS", id: "projects" },
+  { label: "SKILLS", id: "skills" },
+  { label: "ACHIEVEMENTS", id: "achievements" },
+  { label: "CONTACT", id: "contact" },
+];
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const visibleSections = useRef(new Map<string, number>());
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     let ticking = false;
@@ -21,6 +32,36 @@ export default function Navigation() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ["hero", ...navigationItems.map((item) => item.id)];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visibleSections.current.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+        });
+
+        const [sectionId, visibility] = [...visibleSections.current.entries()].reduce(
+          (mostVisible, current) => current[1] > mostVisible[1] ? current : mostVisible,
+          ["hero", 0] as [string, number],
+        );
+
+        if (visibility > 0) {
+          const nextSection = sectionId === "hero" ? null : sectionId;
+          setActiveSection((currentSection) => currentSection === nextSection ? currentSection : nextSection);
+        }
+      },
+      { rootMargin: "-28% 0px -52%", threshold: [0, 0.2, 0.6] },
+    );
+
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -59,24 +100,36 @@ export default function Navigation() {
 
         {/* Navigation Items - Desktop */}
         <div className="hidden md:flex items-center">
-          <nav className="flex items-center gap-8 text-xs font-mono tracking-widest text-secondary-text">
-            {[
-              { label: "ABOUT ME", id: "about-me" },
-              { label: "PROJECTS", id: "projects" },
-              { label: "SKILLS", id: "skills" },
-              { label: "ACHIEVEMENTS", id: "achievements" },
-              { label: "CONTACT", id: "contact" }
-            ].map((item) => (
-              <motion.a
-                key={item.id}
-                href={`#${item.id}`}
-                whileHover={{ scale: 1.08, color: "#173DED" }}
-                className="transition-colors uppercase relative py-1 text-on-glass"
-              >
-                {item.label}
-              </motion.a>
-            ))}
-          </nav>
+          <LayoutGroup id="primary-navigation">
+            <nav aria-label="Primary navigation" className="flex items-center gap-1 rounded-full p-1 text-xs font-mono tracking-widest text-secondary-text">
+              {navigationItems.map((item) => {
+                const isActive = activeSection === item.id;
+
+                return (
+                  <motion.a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    aria-current={isActive ? "location" : undefined}
+                    onClick={() => setActiveSection(item.id)}
+                    whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+                    className={`relative rounded-full px-3 py-2 uppercase transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue ${
+                      isActive ? "text-palatinate-blue" : "text-on-glass hover:text-palatinate-blue"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="active-navigation-item"
+                        aria-hidden="true"
+                        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-0 -z-10 transform-gpu rounded-full border border-white/85 bg-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.95),0_3px_10px_rgba(15,23,42,0.08)] will-change-transform"
+                      />
+                    )}
+                    <span className="relative z-10">{item.label}</span>
+                  </motion.a>
+                );
+              })}
+            </nav>
+          </LayoutGroup>
         </div>
 
         {/* Hamburger Menu - Mobile */}
@@ -103,18 +156,18 @@ export default function Navigation() {
             className="md:hidden mt-2 mx-auto max-w-sm rounded-[2rem] bg-white/95 backdrop-blur-xl border border-white/50 p-6 shadow-2xl"
           >
             <nav className="flex flex-col space-y-4 text-sm font-mono text-center tracking-widest text-secondary-text">
-              {[
-                { label: "ABOUT ME", id: "about-me" },
-                { label: "PROJECTS", id: "projects" },
-                { label: "SKILLS", id: "skills" },
-                { label: "ACHIEVEMENTS", id: "achievements" },
-                { label: "CONTACT", id: "contact" }
-              ].map((item) => (
+              {navigationItems.map((item) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-2 hover:text-palatinate-blue hover:bg-[#173DED]/5 rounded-lg transition-colors"
+                  aria-current={activeSection === item.id ? "location" : undefined}
+                  onClick={() => {
+                    setActiveSection(item.id);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`rounded-lg py-2 transition-colors hover:text-palatinate-blue hover:bg-[#173DED]/5 ${
+                    activeSection === item.id ? "bg-[#173DED]/10 text-palatinate-blue" : ""
+                  }`}
                 >
                   {item.label}
                 </a>
