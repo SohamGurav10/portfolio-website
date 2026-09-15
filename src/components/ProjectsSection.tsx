@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { ArrowUpRight, CheckCircle2, Smartphone, Cpu, ShieldAlert, Zap, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import TiltCard from "./TiltCard";
-import Waves from "./Waves";
 
 interface Project {
   id: string;
@@ -86,23 +85,6 @@ export default function ProjectsSection() {
 
   return (
     <section id="projects" className="py-24 px-4 md:px-8 w-full border-t border-black/[0.05] relative">
-
-      {/* Dynamic Interactive Waves Backdrop */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.85]">
-        <Waves
-          lineColor="#173ded"
-          backgroundColor="rgba(255, 255, 255, 0.2)"
-          waveSpeedX={0.02}
-          waveSpeedY={0.01}
-          waveAmpX={40}
-          waveAmpY={20}
-          friction={0.9}
-          tension={0.01}
-          maxCursorMove={120}
-          xGap={12}
-          yGap={36}
-        />
-      </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col">
         {/* Top Title Section */}

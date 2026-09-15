@@ -10,14 +10,11 @@ export default function AboutSection() {
   return (
     <section id="about-me" className="py-24 px-4 md:px-8 w-full border-t border-black/[0.05] relative">
 
-      {/* Dynamic Interactive Shape Grid Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.12]">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.12]" aria-hidden="true">
         <ShapeGrid
           speed={0.3}
-          squareSize={40}
           direction="diagonal"
           borderColor="#173ded"
-          hoverFillColor="#222"
           hoverColor="#173ded"
           hoverTrailAmount={5}
           shape="square"

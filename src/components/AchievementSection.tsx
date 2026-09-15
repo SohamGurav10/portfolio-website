@@ -3,7 +3,6 @@
 import React from "react";
 import { Calendar, CheckCircle } from "lucide-react";
 import TiltCard from "./TiltCard";
-import PixelSnow from "./PixelSnow";
 
 interface AchievementItem {
   title: string;
@@ -66,21 +65,6 @@ export default function AchievementSection() {
 
   return (
     <section id="achievements" className="py-24 w-full border-t border-black/[0.05] relative overflow-hidden">
-
-      {/* Background PixelSnow effect */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.35]">
-        <PixelSnow 
-          color="#173ded"
-          flakeSize={0.02}
-          minFlakeSize={1.25}
-          pixelResolution={500}
-          speed={0.2}
-          density={1}
-          direction={90}
-          brightness={1}
-          depthFade={1}
-        />
-      </div>
 
       {/* Background glow orbs */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-[#173ded]/[0.01] blur-[140px] pointer-events-none" />

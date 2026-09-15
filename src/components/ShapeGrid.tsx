@@ -7,7 +7,6 @@ interface GridCell {
   x: number;
   y: number;
 }
-
 interface ShapeGridProps {
   direction?: "right" | "left" | "up" | "down" | "diagonal";
   speed?: number;
