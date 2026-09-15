@@ -57,8 +57,6 @@ const projects: Project[] = [
 
 export default function ProjectsSection() {
   const [activeProjectId, setActiveProjectId] = useState(projects[0].id);
-  const [history, setHistory] = useState([projects[0].id]);
-  const [historyIndex, setHistoryIndex] = useState(0);
   const [query, setQuery] = useState("");
   const activeProject = projects.find((project) => project.id === activeProjectId) ?? projects[0];
   const filteredProjects = useMemo(
@@ -67,18 +65,13 @@ export default function ProjectsSection() {
   );
 
   const selectProject = (projectId: string) => {
-    if (projectId === activeProjectId) return;
-    const nextHistory = [...history.slice(0, historyIndex + 1), projectId];
-    setHistory(nextHistory);
-    setHistoryIndex(nextHistory.length - 1);
     setActiveProjectId(projectId);
   };
 
-  const moveThroughHistory = (direction: -1 | 1) => {
-    const nextIndex = historyIndex + direction;
-    if (nextIndex < 0 || nextIndex >= history.length) return;
-    setHistoryIndex(nextIndex);
-    setActiveProjectId(history[nextIndex]);
+  const moveProject = (direction: -1 | 1) => {
+    const currentIndex = projects.findIndex((project) => project.id === activeProjectId);
+    const nextIndex = (currentIndex + direction + projects.length) % projects.length;
+    setActiveProjectId(projects[nextIndex].id);
   };
 
   return (
@@ -89,7 +82,7 @@ export default function ProjectsSection() {
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-primary-text uppercase leading-none font-sans">Projects</h2>
         </div>
 
-        <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white/65 shadow-[0_24px_60px_rgba(15,23,42,0.1)] backdrop-blur-2xl">
+        <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-[#dcdee2] shadow-[0_24px_60px_rgba(15,23,42,0.1)]">
           <div className="grid min-h-16 md:grid-cols-[19rem_minmax(0,1fr)]">
             <div className="flex items-center gap-2 border-b border-black/[0.06] bg-slate-100/70 px-6 md:border-b-0 md:border-r" aria-hidden="true">
               <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
@@ -98,11 +91,11 @@ export default function ProjectsSection() {
             </div>
             <div className="flex items-center gap-4 border-b border-black/[0.06] bg-white/55 px-5 md:px-6">
               <div className="flex items-center rounded-[1.5rem] border border-slate-200 bg-white/75 p-1 shadow-[0_2px_8px_rgba(15,23,42,0.06)] backdrop-blur-xl">
-                <button type="button" aria-label="Previous project" onClick={() => moveThroughHistory(-1)} disabled={historyIndex === 0} className="flex h-10 w-11 items-center justify-center rounded-[1.1rem] text-slate-700 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-35 focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue">
+                <button type="button" aria-label="Previous project" onClick={() => moveProject(-1)} className="flex h-10 w-11 items-center justify-center rounded-[1.1rem] text-slate-700 transition-colors hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue">
                   <ChevronLeft className="h-6 w-6 stroke-[2.25]" />
                 </button>
                 <span className="h-6 w-px bg-slate-200" aria-hidden="true" />
-                <button type="button" aria-label="Next project" onClick={() => moveThroughHistory(1)} disabled={historyIndex === history.length - 1} className="flex h-10 w-11 items-center justify-center rounded-[1.1rem] text-slate-700 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-35 focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue">
+                <button type="button" aria-label="Next project" onClick={() => moveProject(1)} className="flex h-10 w-11 items-center justify-center rounded-[1.1rem] text-slate-700 transition-colors hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue">
                   <ChevronRight className="h-6 w-6 stroke-[2.25]" />
                 </button>
               </div>

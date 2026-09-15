@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Download, GraduationCap, Calendar, BookOpen } from "lucide-react";
+import { Download, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 import TiltCard from "./TiltCard";
 import ShapeGrid from "./ShapeGrid";
@@ -89,10 +89,7 @@ export default function AboutSection() {
 
               <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
-                  <div className="flex gap-4 items-start">
-                    <div className="p-2.5 rounded-xl bg-white/50 border border-white/85 text-palatinate-blue shadow-[0_2px_6px_rgba(0,0,0,0.01)] flex-shrink-0">
-                      <GraduationCap className="w-5 h-5" />
-                    </div>
+                  <div>
                     <div className="space-y-1">
                       <h4 className="font-bold text-primary-text text-base leading-tight">
                         Bachelor of Engineering
@@ -115,8 +112,7 @@ export default function AboutSection() {
 
                 {/* Coursework mapping */}
                 <div className="pt-2 space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#6B7280] font-bold flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-palatinate-blue" />
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#6B7280] font-bold block">
                     RELEVANT COURSEWORK
                   </span>
 
@@ -124,7 +120,7 @@ export default function AboutSection() {
                     {["Data Structures", "OOP", "DBMS", "Computer Networks", "Embedded Systems"].map((course) => (
                       <span
                         key={course}
-                        className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-white/60 border border-white/85 text-primary-text shadow-[0_1px_4px_rgba(0,0,0,0.01)]"
+                        className="text-xs font-mono font-bold px-2 py-1 rounded bg-white/60 border border-white/85 text-palatinate-blue shadow-[0_1px_4px_rgba(0,0,0,0.01)]"
                       >
                         {course}
                       </span>
