@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Mail, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import TiltCard from "./TiltCard";
-import LetterGlitch from "./LetterGlitch";
+import Grainient from "./Grainient";
 
 export default function ConnectSection() {
   const [formState, setFormState] = useState({
@@ -52,19 +52,37 @@ export default function ConnectSection() {
 
   return (
     <footer id="contact" className="pt-24 pb-0 w-full relative overflow-hidden">
-      <div className="relative overflow-hidden">
-        <div className="contact-surface absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.14]" aria-hidden="true">
-          <LetterGlitch
-            glitchSpeed={70}
-            centerVignette={false}
-            outerVignette={false}
-            smooth={true}
-          />
-        </div>
 
-        {/* Background glow orbs */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-palatinate-blue/[0.02] blur-[140px] pointer-events-none" />
+      {/* Background Grainient effect */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.35]">
+        <Grainient
+          color1="#bababa"
+          color2="#dcdee2"
+          color3="#bababa"
+          timeSpeed={0.25}
+          colorBalance={0.0}
+          warpStrength={1.0}
+          warpFrequency={5.0}
+          warpSpeed={2.0}
+          warpAmplitude={50.0}
+          blendAngle={0.0}
+          blendSoftness={0.05}
+          rotationAmount={500.0}
+          noiseScale={2.0}
+          grainAmount={0.1}
+          grainScale={2.0}
+          grainAnimated={false}
+          contrast={1.5}
+          gamma={1.0}
+          saturation={1.0}
+          centerX={0.0}
+          centerY={0.0}
+          zoom={0.9}
+        />
+      </div>
+
+      {/* Background glow orbs */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-palatinate-blue/[0.02] blur-[140px] pointer-events-none" />
 
       {/* Inner grid limited to max-w-7xl, leaving footer background full-bleed */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-10">
@@ -189,7 +207,7 @@ export default function ConnectSection() {
                     whileHover={submitting ? {} : { scale: 1.02, backgroundColor: "#2046ff" }}
                     whileTap={submitting ? {} : { scale: 0.98 }}
                     className={`
-                    btn-glow-light w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full 
+                    btn-glow-light w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full
                     bg-palatinate-blue text-white font-bold tracking-wide text-sm font-sans cursor-pointer
                     transition-all duration-300 shadow-[0_4px_15px_rgba(23,61,237,0.2)]
                     ${submitting ? "opacity-75 cursor-not-allowed" : ""}
@@ -228,7 +246,6 @@ export default function ConnectSection() {
           </div>
         </div>
       </div>
-      </div>
 
       {/* Full-width Glass Footer Section at the bottom */}
       <div className="w-full bg-white/45 backdrop-blur-[40px] saturate-[170%] border-t border-white/60 mt-16 relative z-10">
@@ -243,9 +260,7 @@ export default function ConnectSection() {
               {/* Brand Description */}
               <div className="space-y-4">
                 <h3 className="font-sans text-xl font-bold tracking-tighter text-primary-text">
-                  <a href="#hero" className="hover:text-palatinate-blue transition-colors duration-300">
-                    soham gurav
-                  </a>
+                  soham gurav
                 </h3>
                 <p className="text-secondary-text font-sans font-light text-sm leading-relaxed max-w-xs">
                   Electronics & Computer Engineer<br />
@@ -290,6 +305,16 @@ export default function ConnectSection() {
                   {
                     icon: (
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect width="20" height="16" x="2" y="4" rx="2" />
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                      </svg>
+                    ),
+                    label: "Email",
+                    link: "mailto:sohamgurav808@gmail.com"
+                  },
+                  {
+                    icon: (
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                         <rect width="4" height="12" x="2" y="9" />
                         <circle cx="4" cy="4" r="2" />
@@ -307,15 +332,6 @@ export default function ConnectSection() {
                     ),
                     label: "GitHub",
                     link: "https://github.com/SohamGurav10"
-                  },
-                  {
-                    icon: (
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
-                      </svg>
-                    ),
-                    label: "LeetCode",
-                    link: "https://leetcode.com/u/soham-gurav/"
                   },
                   {
                     icon: (
@@ -356,7 +372,7 @@ export default function ConnectSection() {
                       boxShadow: "0 0 20px 5px rgba(23, 61, 237, 0.55)"
                     }}
                     className="
-                      w-10 h-10 rounded-full bg-palatinate-blue border border-[#173DED] 
+                      w-10 h-10 rounded-full bg-palatinate-blue border border-[#173DED]
                       flex items-center justify-center text-white shadow-[0_3px_10px_rgba(23,61,237,0.2)]
                       cursor-pointer transition-all duration-300
                     "
