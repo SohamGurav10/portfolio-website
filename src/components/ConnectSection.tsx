@@ -246,14 +246,14 @@ export default function ConnectSection() {
 
       {/* Full-width Glass Footer Section at the bottom */}
       <div className="w-full bg-white/45 backdrop-blur-[40px] saturate-[170%] border-t border-white/60 mt-16 relative z-10">
-        
+
         {/* Main Grid Footer Section */}
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 items-start text-left">
-            
+
             {/* Column 1 (Left - Branding & Contact Info) */}
             <div className="space-y-8 flex flex-col items-center md:items-start text-center md:text-left order-1 lg:order-1">
-              
+
               {/* Brand Description */}
               <div className="space-y-4">
                 <h3 className="font-sans text-xl font-bold tracking-tighter text-primary-text">
@@ -268,7 +268,7 @@ export default function ConnectSection() {
                   and optimized full-stack digital architectures.
                 </p>
               </div>
-              
+
               {/* Preferred Contact Info */}
               <div className="space-y-4 flex flex-col items-center md:items-start">
                 <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-muted-text block">
@@ -281,7 +281,7 @@ export default function ConnectSection() {
                   <Mail className="w-3.5 h-3.5 text-palatinate-blue group-hover:scale-110 transition-transform" />
                   <span className="font-black text-primary-text group-hover:text-palatinate-blue transition-colors">sohamgurav808@gmail.com</span>
                 </a>
-                
+
                 {/* Location Line */}
                 <div className="flex items-center gap-2 text-xs font-mono text-secondary-text font-bold uppercase tracking-wider pl-1">
                   <svg className="w-3.5 h-3.5 text-palatinate-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -301,16 +301,6 @@ export default function ConnectSection() {
               </span>
               <div className="flex items-center gap-3">
                 {[
-                  {
-                    icon: (
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect width="20" height="16" x="2" y="4" rx="2" />
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                      </svg>
-                    ),
-                    label: "Email",
-                    link: "mailto:sohamgurav808@gmail.com"
-                  },
                   {
                     icon: (
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
