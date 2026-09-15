@@ -201,7 +201,7 @@ body {
 
 /* --- Hover Interactions — Apple Liquid Glass Hover Glow --- */
 .light-glass-card-hover:hover {
-  /* Let JS-based liquidGL handle 3D tilt and scale zoom smoothly; CSS handles ambient halo glows */
+  /* TiltCard supplies its own optional hover transform. */
   backdrop-filter: blur(50px) saturate(200%) brightness(1.04) !important;
   -webkit-backdrop-filter: blur(50px) saturate(200%) brightness(1.04) !important;
 
