@@ -32,15 +32,14 @@ export default function ConnectSection() {
         body: JSON.stringify(formState),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to send transmission. Please try again.");
-      }
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.error || "Email delivery was not accepted. Please use the email link below.");
 
       setSubmitted(true);
       setFormState({ name: "", email: "", subject: "", message: "" });
       setTimeout(() => setSubmitted(false), 4000);
-    } catch (err: any) {
-      setError(err.message || "An unexpected network error occurred.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "An unexpected network error occurred.");
     } finally {
       setSubmitting(false);
     }
@@ -98,7 +97,7 @@ export default function ConnectSection() {
               LET’S <br /> CONNECT.
             </h2>
             <p className="text-secondary-text font-sans font-light text-base md:text-lg leading-relaxed max-w-md">
-              Have an interesting contract opportunity, classroom project, or full-stack software challenge? Reach out via the form, or ping me through any of the channels below. Let's engineer something premium together.
+              Have an interesting contract opportunity, classroom project, or full-stack software challenge? Reach out via the form, or ping me through any of the channels below. Let&apos;s engineer something premium together.
             </p>
           </div>
 
@@ -124,6 +123,7 @@ export default function ConnectSection() {
                       type="text"
                       id="name"
                       required
+                      maxLength={100}
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                       placeholder="Enter your name"
@@ -144,6 +144,7 @@ export default function ConnectSection() {
                       type="email"
                       id="email"
                       required
+                      maxLength={254}
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                       placeholder="name@company.com"
@@ -165,6 +166,7 @@ export default function ConnectSection() {
                     type="text"
                     id="subject"
                     required
+                    maxLength={160}
                     value={formState.subject}
                     onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
                     placeholder="How can I help you?"
@@ -185,6 +187,7 @@ export default function ConnectSection() {
                     id="message"
                     required
                     rows={4}
+                    maxLength={5000}
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     placeholder="Draft your project description or question here..."
@@ -224,7 +227,7 @@ export default function ConnectSection() {
                     animate={{ opacity: 1, y: 0 }}
                     className="p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-green-700 text-sm text-center font-mono font-bold"
                   >
-                    ✓ TRANSMISSION SECURED. Talk soon!
+                    ✓ EMAIL ACCEPTED FOR DELIVERY. Talk soon!
                   </motion.div>
                 )}
 

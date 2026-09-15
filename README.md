@@ -16,6 +16,18 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Contact email
+
+The contact form sends through [Resend](https://resend.com). Configure these server-only variables in your hosting environment before enabling submissions:
+
+```bash
+RESEND_API_KEY=re_...
+CONTACT_FROM_EMAIL="Portfolio <contact@your-verified-domain.com>"
+CONTACT_TO_EMAIL=you@example.com
+```
+
+Until all three are configured, the form reports that delivery is unavailable and directs visitors to the visible email link instead.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
