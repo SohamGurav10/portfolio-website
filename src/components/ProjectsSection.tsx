@@ -75,14 +75,14 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="py-24 px-4 md:px-8 w-full border-t border-black/[0.05] relative">
-      <div className="max-w-7xl mx-auto w-full relative z-10">
-        <div className="max-w-3xl mb-12 space-y-4">
+    <section id="projects" className="w-full border-t border-black/[0.05] px-4 py-24 relative md:h-screen md:overflow-hidden md:px-8 md:pb-8 md:pt-24">
+      <div className="relative z-10 mx-auto w-full max-w-7xl md:flex md:h-full md:flex-col">
+        <div className="mb-12 max-w-3xl space-y-4 md:mb-6 md:shrink-0">
           <span className="text-xs uppercase font-mono tracking-widest text-palatinate-blue font-bold block">Portfolio showcase</span>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-primary-text uppercase leading-none font-sans">Projects</h2>
         </div>
 
-        <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-[#dcdee2] shadow-[0_24px_60px_rgba(15,23,42,0.1)]">
+        <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-[#dcdee2] shadow-[0_24px_60px_rgba(15,23,42,0.1)] md:flex md:min-h-0 md:flex-1 md:flex-col">
           <div className="grid min-h-16 md:grid-cols-[19rem_minmax(0,1fr)]">
             <div className="flex items-center gap-2 border-b border-black/[0.06] bg-slate-100/70 px-6 md:border-b-0 md:border-r" aria-hidden="true">
               <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
@@ -108,7 +108,7 @@ export default function ProjectsSection() {
             </div>
           </div>
 
-          <div className="grid min-h-[32rem] md:grid-cols-[19rem_minmax(0,1fr)]">
+          <div className="grid min-h-[32rem] md:min-h-0 md:flex-1 md:grid-cols-[19rem_minmax(0,1fr)]">
             <nav aria-label="Project list" className="border-b border-black/[0.06] bg-slate-100/70 p-3 md:border-b-0 md:border-r">
               <p className="px-3 pb-2 pt-1 text-[10px] font-mono font-bold uppercase tracking-widest text-muted-text">Projects</p>
               <div className="flex gap-1 overflow-x-auto md:flex-col" role="tablist" aria-orientation="vertical">
@@ -126,7 +126,7 @@ export default function ProjectsSection() {
               </div>
             </nav>
 
-            <div id="project-detail" role="tabpanel" aria-label="Project details" tabIndex={0} className="flex min-w-0 flex-col p-6 md:p-10">
+            <div id="project-detail" role="tabpanel" aria-label="Project details" tabIndex={0} className="flex min-w-0 flex-col p-6 md:overflow-y-auto md:p-10">
               <div className="flex items-start gap-4 border-b border-black/[0.06] pb-7">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/75 shadow-[0_6px_18px_rgba(23,61,237,0.12)]"><FinderFolderIcon /></div>
                 <div className="min-w-0">

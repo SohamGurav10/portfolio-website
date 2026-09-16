@@ -48,12 +48,17 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/50 border border-white/80 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
+              className="group relative inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/50 px-3 py-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
             >
-              <span className="w-2 h-2 rounded-full bg-palatinate-blue animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[10px] uppercase tracking-widest font-mono text-palatinate-blue font-bold">
-                AVAILABLE FOR WORK
+                CURRENTLY BUILDING PIPENUDGE AI &amp; DEAL SHIELD
               </span>
+              <div role="tooltip" className="pointer-events-none absolute left-0 top-full z-20 mt-3 w-72 translate-y-1 rounded-2xl border border-white/80 bg-white/85 p-4 text-left opacity-0 shadow-[0_12px_30px_rgba(15,23,42,0.12)] backdrop-blur-xl transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-palatinate-blue">Tech Design Dedics</p>
+                <p className="mt-2 text-xs font-medium leading-relaxed text-primary-text">Founder Engineering Product Intern building the architecture and end-to-end product delivery for Pipenudge AI and Deal Shield.</p>
+                <p className="mt-2 text-xs leading-relaxed text-emerald-700">Open to future internship opportunities after this engagement.</p>
+              </div>
             </motion.div>
 
             {/* Headline - Apple-Inspired Premium Condensed Heavy */}

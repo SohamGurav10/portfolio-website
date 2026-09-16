@@ -17,7 +17,24 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const visibleSections = useRef(new Map<string, number>());
+  const navigationTarget = useRef<string | null>(null);
+  const navigationTimer = useRef(0);
   const shouldReduceMotion = useReducedMotion();
+
+  const navigateToSection = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    event.preventDefault();
+    window.clearTimeout(navigationTimer.current);
+    navigationTarget.current = id;
+    setActiveSection(id);
+    window.history.pushState(null, "", `#${id}`);
+    document.getElementById(id)?.scrollIntoView({
+      behavior: shouldReduceMotion ? "auto" : "smooth",
+      block: "start",
+    });
+    navigationTimer.current = window.setTimeout(() => {
+      navigationTarget.current = null;
+    }, 1200);
+  };
 
   useEffect(() => {
     let ticking = false;
@@ -39,6 +56,8 @@ export default function Navigation() {
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (navigationTarget.current) return;
+
         entries.forEach((entry) => {
           visibleSections.current.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
         });
@@ -62,6 +81,19 @@ export default function Navigation() {
     });
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const completeNavigation = () => {
+      navigationTarget.current = null;
+      window.clearTimeout(navigationTimer.current);
+    };
+
+    window.addEventListener("scrollend", completeNavigation);
+    return () => {
+      window.removeEventListener("scrollend", completeNavigation);
+      window.clearTimeout(navigationTimer.current);
+    };
   }, []);
 
   return (
@@ -110,7 +142,7 @@ export default function Navigation() {
                     key={item.id}
                     href={`#${item.id}`}
                     aria-current={isActive ? "location" : undefined}
-                    onClick={() => setActiveSection(item.id)}
+                    onClick={(event) => navigateToSection(event, item.id)}
                     whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
                     className={`relative rounded-full px-3 py-2 uppercase transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue ${
                       isActive ? "text-palatinate-blue" : "text-on-glass hover:text-palatinate-blue"
@@ -161,8 +193,8 @@ export default function Navigation() {
                   key={item.id}
                   href={`#${item.id}`}
                   aria-current={activeSection === item.id ? "location" : undefined}
-                  onClick={() => {
-                    setActiveSection(item.id);
+                  onClick={(event) => {
+                    navigateToSection(event, item.id);
                     setMobileMenuOpen(false);
                   }}
                   className={`rounded-lg py-2 transition-colors hover:text-palatinate-blue hover:bg-[#173DED]/5 ${

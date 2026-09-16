@@ -77,8 +77,8 @@ export default function AboutSection() {
 
             {/* Card 1 - Education */}
             <TiltCard
-              className="glass-tint-about rounded-[2.2rem] p-8 shadow-[0_10px_25px_rgba(0,0,0,0.03)] glass-fall-in text-on-glass"
-              style={{ animationDelay: "0.1s" }}
+              className="order-2 glass-tint-about rounded-[2.2rem] p-8 shadow-[0_10px_25px_rgba(0,0,0,0.03)] glass-fall-in text-on-glass"
+              style={{ animationDelay: "0.2s" }}
             >
               <div className="mb-6">
                 <h3 className="text-lg font-bold uppercase tracking-tight text-primary-text flex items-center gap-2 font-sans">
@@ -130,10 +130,60 @@ export default function AboutSection() {
               </div>
             </TiltCard>
 
-            {/* Card 2 - Fun Facts About Me */}
+            {/* Card 2 - Experience */}
             <TiltCard
-              className="glass-tint-about rounded-[2.2rem] p-8 shadow-[0_10px_25px_rgba(0,0,0,0.03)] flex flex-col justify-between glass-fall-in text-on-glass"
-              style={{ animationDelay: "0.2s" }}
+              className="order-1 glass-tint-about rounded-[2.2rem] p-8 shadow-[0_10px_25px_rgba(0,0,0,0.03)] glass-fall-in text-on-glass"
+              style={{ animationDelay: "0.1s" }}
+            >
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <h3 className="flex items-center gap-2 font-sans text-lg font-bold tracking-tight text-primary-text uppercase">
+                  <span className="h-6 w-1.5 rounded bg-palatinate-blue" />
+                  EXPERIENCE
+                </h3>
+                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-emerald-500/25 bg-emerald-50/75 px-3 py-1.5 font-mono text-[10px] font-bold text-emerald-700 shadow-[0_1px_4px_rgba(0,0,0,0.01)]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  CURRENT · 3 MONTHS
+                </span>
+              </div>
+
+              <div className="space-y-5">
+                <div>
+                  <h4 className="text-base font-bold leading-tight text-primary-text">Founder Engineering Product Intern</h4>
+                  <p className="mt-1 text-xs font-semibold text-palatinate-blue">Tech Design Dedics</p>
+                </div>
+
+                <p className="text-sm font-light leading-relaxed text-secondary-text">
+                  Building Pipenudge AI and Deal Shield end-to-end alongside one colleague, with ownership of system design, architecture, implementation, and the technical foundations required to ship each product.
+                </p>
+
+                <div className="space-y-3">
+                  <span className="block text-[10px] font-mono font-bold uppercase tracking-widest text-muted-text">PRODUCTS</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {["Pipenudge AI", "Deal Shield"].map((product) => (
+                      <span key={product} className="rounded border border-white/85 bg-white/60 px-2 py-1 font-mono text-xs font-bold text-palatinate-blue shadow-[0_1px_4px_rgba(0,0,0,0.01)]">
+                        {product}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <span className="block text-[10px] font-mono font-bold uppercase tracking-widest text-muted-text">TECH STACK</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {["Go", "Next.js", "TypeScript", "Spring AI", "Google Cloud"].map((technology) => (
+                      <span key={technology} className="rounded border border-white/85 bg-white/60 px-2 py-1 font-mono text-xs font-bold text-palatinate-blue shadow-[0_1px_4px_rgba(0,0,0,0.01)]">
+                        {technology}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </TiltCard>
+
+            {/* Card 3 - Fun Facts About Me */}
+            <TiltCard
+              className="order-3 glass-tint-about rounded-[2.2rem] p-8 shadow-[0_10px_25px_rgba(0,0,0,0.03)] flex flex-col justify-between glass-fall-in text-on-glass"
+              style={{ animationDelay: "0.3s" }}
             >
               <div className="mb-6">
                 <h3 className="text-lg font-bold uppercase tracking-tight text-primary-text flex items-center gap-2 font-sans">
