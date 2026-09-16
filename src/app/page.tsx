@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useEffect } from "react";
+import React from "react";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -11,28 +9,6 @@ import ConnectSection from "@/components/ConnectSection";
 import LetterGlitch from "@/components/LetterGlitch";
 
 export default function Home() {
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrolled = window.scrollY;
-          document.documentElement.style.setProperty("--scroll-top", `${scrolled}`);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    // Passive listener avoids blocking main thread scrolling
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    
-    // Set initial scroll top variable
-    handleScroll();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <>
       <Navigation />
@@ -41,10 +17,9 @@ export default function Home() {
         <AboutSection />
         <ProjectsSection />
         <div className="relative w-full overflow-hidden">
-          {/* Continuous LetterGlitch Backdrop spanning both sections */}
-          <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.24]">
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.16]" aria-hidden="true">
             <LetterGlitch
-              glitchSpeed={50}
+              glitchSpeed={70}
               centerVignette={false}
               outerVignette={false}
               smooth={true}

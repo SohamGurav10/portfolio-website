@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Mail, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import TiltCard from "./TiltCard";
@@ -12,36 +12,27 @@ export default function HeroSection() {
   return (
     <section id="hero" className="w-full min-h-screen relative overflow-hidden flex items-center justify-center pt-28 pb-16">
       
-      {/* Dynamic full-bleed Grainient background just for the hero section */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-45">
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-45" aria-hidden="true">
         <Grainient
           color1="#173ded"
           color2="#dcdee2"
           color3="#bababa"
           timeSpeed={0.25}
-          colorBalance={0.0}
-          warpStrength={1.0}
-          warpFrequency={5.0}
-          warpSpeed={2.0}
-          warpAmplitude={50.0}
-          blendAngle={0.0}
+          warpStrength={1}
+          warpFrequency={5}
+          warpSpeed={2}
+          warpAmplitude={50}
           blendSoftness={0.05}
-          rotationAmount={500.0}
-          noiseScale={2.0}
+          rotationAmount={500}
+          noiseScale={2}
           grainAmount={0.1}
-          grainScale={2.0}
+          grainScale={2}
           grainAnimated={false}
           contrast={1.5}
-          gamma={1.0}
-          saturation={1.0}
-          centerX={0.0}
-          centerY={0.0}
           zoom={0.9}
         />
       </div>
-
-      {/* Subtle overlay texture to make the WebGL gradient fade elegantly into the base bg */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F3F4F6]/60 to-[#F3F4F6] z-0 pointer-events-none" />
+      <div className="hero-surface absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
 
       {/* Editorial top layout lines */}
       <div className="absolute top-24 left-4 right-4 h-[1px] bg-black/[0.05] pointer-events-none hidden md:block z-10" />
@@ -57,12 +48,17 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/50 border border-white/80 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
+              className="group relative inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/50 px-3 py-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
             >
-              <span className="w-2 h-2 rounded-full bg-palatinate-blue animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[10px] uppercase tracking-widest font-mono text-palatinate-blue font-bold">
-                AVAILABLE FOR WORK
+                CURRENTLY BUILDING PIPENUDGE AI &amp; DEAL SHIELD
               </span>
+              <div role="tooltip" className="pointer-events-none absolute left-0 top-full z-20 mt-3 w-72 translate-y-1 rounded-2xl border border-white/80 bg-white/85 p-4 text-left opacity-0 shadow-[0_12px_30px_rgba(15,23,42,0.12)] backdrop-blur-xl transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-palatinate-blue">Tech Design Dedics</p>
+                <p className="mt-2 text-xs font-medium leading-relaxed text-primary-text">Founder Engineering Product Intern building the architecture and end-to-end product delivery for Pipenudge AI and Deal Shield.</p>
+                <p className="mt-2 text-xs leading-relaxed text-emerald-700">Open to future internship opportunities after this engagement.</p>
+              </div>
             </motion.div>
 
             {/* Headline - Apple-Inspired Premium Condensed Heavy */}
@@ -155,9 +151,6 @@ export default function HeroSection() {
               className="btn-glow-light btn-shimmer inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-palatinate-blue text-white font-semibold tracking-wide text-sm font-sans w-full sm:w-auto hover:bg-[#2046ff] text-on-glass"
             >
               CONTACT ME
-              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20">
-                <Mail className="w-3.5 h-3.5" />
-              </span>
             </a>
 
             {/* Secondary CTA */}

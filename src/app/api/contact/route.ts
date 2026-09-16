@@ -1,77 +1,89 @@
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const { name, email, subject, message } = body;
+export const runtime = "nodejs";
 
-    // 1. Basic validation
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { success: false, error: "All contact fields are required." },
-        { status: 400 }
-      );
-    }
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_REQUESTS = 3;
+const requests = new Map<string, number[]>();
 
-    // 2. Log transmission to the server console securely
-    console.log("================ CONTACT TRANSMISSION RECIEVED ================");
-    console.log(`Timestamp: ${new Date().toISOString()}`);
-    console.log(`From: ${name} <${email}>`);
-    console.log(`Subject: ${subject}`);
-    console.log(`Message Body:\n${message}`);
-    console.log("==============================================================");
-
-    /* 
-      ---------------------------------------------------------
-      PRO-TIP: HOW TO WIRE REAL EMAIL DELIVERABILITY LATER
-      ---------------------------------------------------------
-      You can easily route these incoming messages directly to your inbox 
-      using a provider like Resend or Nodemailer!
-
-      Option A: Using Resend (Recommended & Extremely Premium)
-      -----------------------------------------------------
-      1. Install Resend: npm install resend
-      2. Import Resend: import { Resend } from "resend";
-      3. Wire the code:
-         const resend = new Resend(process.env.RESEND_API_KEY);
-         await resend.emails.send({
-           from: 'Portfolio Contact <onboarding@resend.dev>',
-           to: 'sohamgurav808@gmail.com',
-           subject: `[Portfolio Connect] ${subject}`,
-           html: `<p><strong>Name:</strong> ${name}</p>
-                  <p><strong>Email:</strong> ${email}</p>
-                  <p><strong>Message:</strong> ${message}</p>`
-         });
-
-      Option B: Using Nodemailer (Standard SMTP Routing)
-      -----------------------------------------------------
-      1. Install Nodemailer: npm install nodemailer
-      2. Import Nodemailer: import nodemailer from "nodemailer";
-      3. Wire the code:
-         const transporter = nodemailer.createTransport({
-           service: 'gmail',
-           auth: {
-             user: process.env.EMAIL_USER,
-             pass: process.env.EMAIL_PASS // Use Gmail App Password
-           }
-         });
-         await transporter.sendMail({
-           from: email,
-           to: 'sohamgurav808@gmail.com',
-           subject: `[Portfolio Connect] ${subject}`,
-           text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-         });
-    */
-
-    return NextResponse.json(
-      { success: true, message: "Transmission received and logged successfully." },
-      { status: 200 }
-    );
-  } catch (err: any) {
-    console.error("API contact submission error:", err);
-    return NextResponse.json(
-      { success: false, error: "An internal server error occurred while processing the transmission." },
-      { status: 500 }
-    );
-  }
+function isRateLimited(request: Request) {
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+    || request.headers.get("x-real-ip")
+    || "unknown";
+  const now = Date.now();
+  const recent = (requests.get(ip) || []).filter((time) => now - time < WINDOW_MS);
+  recent.push(now);
+  requests.set(ip, recent);
+  return recent.length > MAX_REQUESTS;
 }
+
+function contactFields(body: unknown) {
+  if (!body || typeof body !== "object") return null;
+
+  const { name, email, subject, message } = body as Record<string, unknown>;
+  if (typeof name !== "string" || typeof email !== "string" || typeof subject !== "string" || typeof message !== "string") return null;
+
+  const fields = {
+    name: name.trim(),
+    email: email.trim(),
+    subject: subject.trim(),
+    message: message.trim(),
+  };
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email);
+
+  return fields.name && fields.name.length <= 100
+    && validEmail && fields.email.length <= 254
+    && fields.subject && fields.subject.length <= 160
+    && fields.message && fields.message.length <= 5_000
+    ? fields
+    : null;
+}
+
+export async function POST(request: Request) {
+  if (isRateLimited(request)) {
+    return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+  }
+
+  let fields;
+  try {
+    fields = contactFields(await request.json());
+  } catch {
+    fields = null;
+  }
+
+  if (!fields) {
+    return NextResponse.json({ error: "Please enter valid contact details." }, { status: 400 });
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONTACT_FROM_EMAIL || process.env.CONTACT_FROM;
+  const to = process.env.CONTACT_TO_EMAIL || process.env.CONTACT_TO;
+  if (!apiKey || !from || !to) {
+    return NextResponse.json({ error: "Contact email is not configured yet. Please use the email link below." }, { status: 503 });
+  }
+
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from,
+        to: [to],
+        reply_to: fields.email,
+        subject: `[Portfolio] ${fields.subject}`,
+        text: `Name: ${fields.name}\nEmail: ${fields.email}\n\n${fields.message}`,
+      }),
+    });
+    const result: unknown = await response.json().catch(() => null);
+
+    if (!response.ok || !result || typeof result !== "object" || !("id" in result)) {
+      return NextResponse.json({ error: "Email delivery was not accepted. Please use the email link below." }, { status: 502 });
+    }
+  } catch {
+    return NextResponse.json({ error: "Email delivery is unavailable. Please use the email link below." }, { status: 502 });
+  }
+
+  return NextResponse.json({ success: true });
+}
+
+// ponytail: per-instance memory limit; use shared Redis limits if deployment spans instances.

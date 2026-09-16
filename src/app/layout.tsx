@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   description: "Explore the premium portfolio of Soham, an Electronics/Computer Engineer specializing in high-performance IoT, Flutter mobile applications, and advanced API designs.",
   keywords: ["Soham Portfolio", "Systems Engineer", "IoT Developer", "Flutter Mobile App developer", "Next.js Portfolio", "Light Glass UI", "Apple Minimalist Portfolio"],
   authors: [{ name: "Soham" }],
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   robots: {
     index: true,
     follow: true,

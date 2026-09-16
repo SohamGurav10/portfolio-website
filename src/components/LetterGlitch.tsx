@@ -8,7 +8,6 @@ interface Letter {
   targetColor: string;
   colorProgress: number;
 }
-
 interface Grid {
   columns: number;
   rows: number;

@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Calendar, CheckCircle } from "lucide-react";
-import TiltCard from "./TiltCard";
-import PixelSnow from "./PixelSnow";
 
 interface AchievementItem {
   title: string;
@@ -14,6 +12,7 @@ interface AchievementItem {
 }
 
 export default function AchievementSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
   const achievements: AchievementItem[] = [
     {
       title: "1st Place, CircuitVista 2K26",
@@ -64,112 +63,85 @@ export default function AchievementSection() {
     }
   ];
 
+  const activeAchievement = achievements[activeIndex];
+
   return (
-    <section id="achievements" className="py-24 w-full border-t border-black/[0.05] relative overflow-hidden">
+    <section id="achievements" className="relative w-full overflow-hidden border-t border-black/[0.05] py-24">
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-80 bg-[linear-gradient(180deg,rgba(23,61,237,0.08),transparent)]" />
 
-      {/* Background PixelSnow effect */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.35]">
-        <PixelSnow 
-          color="#173ded"
-          flakeSize={0.02}
-          minFlakeSize={1.25}
-          pixelResolution={500}
-          speed={0.2}
-          density={1}
-          direction={90}
-          brightness={1}
-          depthFade={1}
-        />
-      </div>
-
-      {/* Background glow orbs */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-[#173ded]/[0.01] blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-[#173ded]/[0.01] blur-[140px] pointer-events-none" />
-
-      {/* Centered Content Wrapper to fill page sides with snow */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-10">
-
-        {/* Title Block - Centered Editorial Style */}
-        <div className="max-w-3xl mx-auto text-center mb-20 space-y-4 relative z-10">
-        <span className="text-xs uppercase font-mono tracking-widest text-[#173ded] font-bold block">
-          MILESTONES & RECOGNITIONS
-        </span>
-        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-primary-text uppercase leading-none font-sans">
-          ACHIEVEMENTS
-        </h2>
-        <p className="text-base text-secondary-text font-sans font-light leading-relaxed max-w-2xl mx-auto pt-2">
-          Milestones and accomplishments that reflect my technical growth, problem-solving approach, and ability to deliver under constraints.
-        </p>
-        <div className="w-24 h-[3px] bg-gradient-to-r from-[#173ded] to-transparent mx-auto rounded-full mt-4" />
-      </div>
-
-      {/* Responsive Timeline Map Layout */}
-      <div className="relative max-w-5xl mx-auto w-full pt-4">
-
-        {/* Map Path Line with `#173ded` glow */}
-        <div className="absolute left-6 lg:left-1/2 top-4 bottom-4 w-[2px] bg-[#173ded]/25 -translate-x-1/2 pointer-events-none shadow-[0_0_8px_rgba(23,61,237,0.15)]" />
-
-        <div className="space-y-12 relative z-10 flex flex-col w-full">
-          {achievements.map((item, idx) => {
-            const isLeft = idx % 2 === 0;
-            return (
-              <div key={idx} className={`flex w-full relative ${isLeft ? "lg:justify-start" : "lg:justify-end"}`}>
-
-                {/* Timeline Card */}
-                <div className="w-full lg:w-[45%] pl-14 lg:pl-0">
-                  <TiltCard className="glass-tint-experience rounded-[2.2rem] p-6 md:p-8 shadow-[0_10px_25px_rgba(0,0,0,0.03)] glass-fall-in text-on-glass border border-white/50 relative overflow-hidden backdrop-blur-xl hover:border-[#173ded]/30 transition-all duration-300 group">
-
-                    {/* Glowing highlight trace */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#173ded]/[0.01] to-transparent pointer-events-none" />
-
-                    <div className="flex flex-col gap-4 relative z-10">
-
-                      {/* Header row */}
-                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-black/[0.04]">
-                        <div className="space-y-1">
-                          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#173ded] block">
-                            {item.subtitle}
-                          </span>
-                          <h3 className="text-lg font-black text-primary-text leading-tight uppercase font-sans group-hover:text-[#173ded] transition-colors duration-300">
-                            {item.title}
-                          </h3>
-                        </div>
-                        <span className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/50 border border-white/80 shadow-[0_1px_4px_rgba(0,0,0,0.01)] text-[10px] font-mono font-bold text-secondary-text self-start sm:self-auto h-fit">
-                          <Calendar className="w-3 h-3 text-[#173ded]" />
-                          <span>{item.date}</span>
-                        </span>
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-sm text-secondary-text leading-relaxed font-sans font-light">
-                        {item.description}
-                      </p>
-
-                      {/* Bullets */}
-                      {item.bullets && item.bullets.length > 0 && (
-                        <ul className="space-y-2.5 pt-2">
-                          {item.bullets.map((bullet, bIdx) => (
-                            <li key={bIdx} className="flex items-start gap-2.5 text-xs text-secondary-text leading-relaxed font-light font-sans">
-                              <CheckCircle className="w-4 h-4 text-[#173ded] shrink-0 mt-0.5" />
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </TiltCard>
-                </div>
-
-                {/* Node Point with `#173ded` glow */}
-                <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 top-8 flex items-center justify-center z-20">
-                  <div className="w-4 h-4 rounded-full bg-[#173ded] border-4 border-white shadow-[0_0_12px_rgba(23,61,237,0.7)] transition-all duration-300 hover:scale-125 cursor-default" />
-                </div>
-
-              </div>
-            );
-          })}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 md:px-8">
+        <div className="mx-auto mb-14 max-w-3xl space-y-4 text-center">
+          <span className="block text-xs font-mono font-bold uppercase tracking-widest text-palatinate-blue">
+            MILESTONES & RECOGNITIONS
+          </span>
+          <h2 className="font-sans text-4xl font-black leading-none tracking-tight text-primary-text uppercase md:text-5xl">
+            ACHIEVEMENT ARCHIVE
+          </h2>
+          <p className="mx-auto max-w-2xl pt-2 font-sans text-base font-light leading-relaxed text-secondary-text">
+            A focused record of technical outcomes, competition milestones, and leadership experience.
+          </p>
         </div>
-      </div>
+
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-3 text-[10px] font-mono font-bold uppercase tracking-widest text-muted-text">Select a record</p>
+          <div aria-label="Achievement records" className="flex items-end gap-2 overflow-x-auto px-1 pt-7">
+            {achievements.map((achievement, index) => {
+              const isActive = index === activeIndex;
+
+              return (
+                <button
+                  key={achievement.title}
+                  type="button"
+                  aria-pressed={isActive}
+                  onClick={() => setActiveIndex(index)}
+                  className={`relative min-w-36 shrink-0 rounded-t-[1.6rem] border px-4 pb-3 pt-4 text-left text-xs font-mono font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-palatinate-blue sm:min-w-44 ${
+                    isActive
+                      ? "z-10 -mb-px border-palatinate-blue bg-palatinate-blue text-white shadow-[0_-8px_20px_rgba(23,61,237,0.18)]"
+                      : "border-white/80 bg-[#dcdee2]/85 text-secondary-text hover:bg-white/70 hover:text-primary-text"
+                  } ${index % 2 === 1 ? "translate-y-2" : ""}`}
+                >
+                  <span className="block text-[10px] uppercase tracking-widest opacity-75">{achievement.date}</span>
+                  <span className="mt-1 block max-w-48 whitespace-normal leading-tight">{achievement.title}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <article className="relative rounded-b-[2rem] rounded-tr-[2rem] border border-white/80 bg-[#dcdee2]/85 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.1)] backdrop-blur-xl md:min-h-[31rem] md:p-10">
+            <div aria-hidden="true" className="absolute inset-0 rounded-b-[2rem] rounded-tr-[2rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.18),transparent_55%)]" />
+            <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_15rem]">
+              <div>
+                <div className="flex flex-col gap-4 border-b border-black/[0.06] pb-6 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-palatinate-blue">{activeAchievement.subtitle}</p>
+                    <h3 className="mt-2 font-sans text-2xl font-black leading-tight tracking-tight text-primary-text md:text-4xl">{activeAchievement.title}</h3>
+                  </div>
+                  <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border border-white/90 bg-white/55 px-3 py-1.5 text-[10px] font-mono font-bold text-secondary-text shadow-[0_1px_4px_rgba(0,0,0,0.01)]">
+                    <Calendar className="h-3.5 w-3.5 text-palatinate-blue" />
+                    {activeAchievement.date}
+                  </span>
+                </div>
+
+                <div className="pt-6">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-muted-text">Overview</p>
+                  <p className="mt-3 max-w-3xl font-sans text-base font-light leading-relaxed text-secondary-text">{activeAchievement.description}</p>
+                </div>
+              </div>
+
+              <aside className="rounded-2xl border border-palatinate-blue/15 bg-palatinate-blue/[0.06] p-5">
+                <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-palatinate-blue">Proof points</p>
+                <ul className="mt-4 space-y-3">
+                  {activeAchievement.bullets?.map((bullet) => (
+                    <li key={bullet} className="flex items-start gap-2 text-xs leading-relaxed text-secondary-text">
+                      <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-palatinate-blue" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   );
