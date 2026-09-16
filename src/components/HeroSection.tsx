@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Mail, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import TiltCard from "./TiltCard";
@@ -146,9 +146,6 @@ export default function HeroSection() {
               className="btn-glow-light btn-shimmer inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-palatinate-blue text-white font-semibold tracking-wide text-sm font-sans w-full sm:w-auto hover:bg-[#2046ff] text-on-glass"
             >
               CONTACT ME
-              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20">
-                <Mail className="w-3.5 h-3.5" />
-              </span>
             </a>
 
             {/* Secondary CTA */}
